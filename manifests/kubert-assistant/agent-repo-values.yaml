@@ -1,0 +1,73 @@
+# Deployment config
+
+## Image from Kubert Images public docker repo
+image:
+  repository: northamerica-northeast2-docker.pkg.dev/tcinc-dev/kubert-images/agent-repo
+  tag: 6ac4178
+
+## Container Http port
+containerPortHttp: 8080
+
+## Additional port used for probes
+extraContainerPorts:
+- name: health
+  port: 8081
+
+## Resource allocation for the main container
+resources:
+  limits:
+    cpu: 80m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+## Additional mounts
+extraVolumeMounts: |-
+  - name: cache-volume
+    mountPath: /var/cache/nginx
+
+## Additional volumes
+extraVolumes: |-
+  - name: cache-volume
+    emptyDir: {}
+
+## Probes
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8081
+  initialDelaySeconds: 10
+  periodSeconds: 10
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8081
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+## Pod security context
+podSecurityContext:
+  enabled: true
+  fsGroup: 101
+  runAsGroup: 101
+  runAsUser: 101
+
+## Container security context
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  enabled: true
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+
+# Ingress config
+ingress:
+  enabled: true
+  className: nginx
+  corsAllowedOrigins:
+  - http://kubert-assistant.lan
+  - http://kubert-agent.lan
+  hostname: kubert-agent.lan

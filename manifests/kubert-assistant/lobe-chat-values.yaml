@@ -1,0 +1,82 @@
+# Deployment config
+
+## Image for Lobe Chat
+image:
+  pullPolicy: IfNotPresent
+  repository: lobehub/lobe-chat
+  tag: v1.7.3
+
+## Container Http port
+containerPortHttp: 3210
+
+## Environment variables
+extraEnvVars:
+- name: OPENAI_API_KEY
+  value:
+- name: ANTHROPIC_API_KEY
+  value:
+- name: DEFAULT_AGENT_CONFIG
+  value: model=gpt-4o;tts.sttLocale=en-US;inputTemplate="Hello;I am a Kubert assistant;"
+- name: AGENTS_INDEX_URL
+  value: http://kubert-agent.lan
+- name: PLUGINS_INDEX_URL
+  value: http://kubert-plugin.lan
+- name: ACCESS_CODE
+  value: kubert
+
+
+## Resource allocation for the main container
+resources:
+  limits:
+    cpu: 150m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 128Mi
+
+## Probes  
+livenessProbe: {}
+readinessProbe: {}
+
+## Pod security context
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+  runAsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+
+## Container security context
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  enabled: true
+  privileged: false
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1001
+
+# Network policy config
+networkPolicy:
+  enabled: false
+
+# RBAC config
+rbac:
+  create: true
+
+# Ingress config
+ingress:
+  enabled: true
+  className: nginx
+  corsAllowedOrigins:
+  - http://kubert-assistant.lan  
+  extraAnnotations: |
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "8"
+    nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "24k"
+  hostname: kubert-assistant.lan
+  path: /
+
+

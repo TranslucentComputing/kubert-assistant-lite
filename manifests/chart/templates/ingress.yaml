@@ -1,0 +1,48 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+  annotations:
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.ingress.extraAnnotations }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.ingress.extraAnnotations "context" $) | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "*"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://{{ .Values.ingress.hostname }}"
+    {{- if .Values.ingress.corsAllowedOrigins }}
+    nginx.ingress.kubernetes.io/cors-allow-origin: "{{ .Values.ingress.corsAllowedOrigins | join "," }}"
+    {{- end }}
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    {{- if .Values.ingress.corsAllowedHeaders }}
+    nginx.ingress.kubernetes.io/cors-allow-headers: "{{ .Values.ingress.corsAllowedHeaders | join "," }}"
+    {{- end }}
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_clear_headers "Server";
+      more_clear_headers "X-Powered-By";      
+      more_set_headers "X-Xss-Protection: 1; mode=block";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-Permitted-Cross-Domain-Policies: none";
+      more_set_headers "Referrer-Policy: no-referrer";
+      {{- if .Values.ingress.frameAncestors }}
+      more_set_headers "Content-Security-Policy: frame-ancestors {{ .Values.ingress.frameAncestors | join " " }}";
+      {{- else }}
+      more_set_headers "X-Frame-Options SAMEORIGIN";
+      {{- end }}
+spec:
+  {{- if and .Values.ingress.className (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}  
+  ingressClassName: {{ .Values.ingress.className | quote }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.hostname | quote }}
+      http:
+        paths:
+          - path:  {{ .Values.ingress.path }}
+            pathType: Prefix
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" .) "servicePort" "http" "context" $)  | nindent 14 }}
+{{- end }}

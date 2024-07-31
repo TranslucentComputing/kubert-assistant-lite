@@ -1,0 +1,378 @@
+## @section Common parameters
+
+## @param kubeVersion Override Kubernetes version
+##
+kubeVersion: ""
+## @param nameOverride String to partially override common.names.fullname template (will maintain the release name)
+##
+nameOverride: ""
+## @param fullnameOverride String to fully override common.names.fullname template
+##
+fullnameOverride: ""
+## @param commonLabels Add labels to all the deployed resources
+##
+commonLabels: {}
+## @param commonAnnotations Add annotations to all the deployed resources
+##
+commonAnnotations: {}
+
+## @section Deployment
+
+## @param image.registry [default: ""] image registry
+## @param image.repository [default: ""]  image repository
+## @skip image.tag image tag (immutable tags are recommended)
+## @param image.pullPolicy image pull policy
+## @param image.pullSecrets image pull secrets
+image:
+  repository: "replace"
+  tag: "replace"
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## e.g:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+
+## @param replicaCount Number of replicas
+##
+replicaCount: 1
+
+## @param containerPortHttp HTTP container port
+##
+containerPortHttp:
+## @param extraContainerPorts Additional container ports
+##
+extraContainerPorts: []
+## @param deploymentAnnotations Add extra annotations to the deployment
+##
+deploymentAnnotations: {}
+## @param podLabels Add extra labels to the pods
+##
+podLabels: {}
+## @param podAnnotations Add extra annotations to the pods
+##
+podAnnotations: {}
+
+## @param updateStrategy.type deployment strategy type
+## @param updateStrategy.rollingUpdate deployment rolling update configuration parameters
+## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+##
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate: {}
+
+## Configure liveness and readiness probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## @param livenessProbe.periodSeconds Period seconds for livenessProbe
+## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
+## @param livenessProbe.successThreshold Success threshold for livenessProbe
+##
+livenessProbe: {}
+
+## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## @param readinessProbe.periodSeconds Period seconds for readinessProbe
+## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
+## @param readinessProbe.successThreshold Success threshold for readinessProbe
+##
+readinessProbe: {}
+
+## @param resources.limits The resources limits for the containers
+## @param resources.requests The requested resources for the containers
+##
+resources: {}
+
+## @param nodeSelector Node labels for pod assignment
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+##
+nodeSelector: {}
+## @param tolerations Tolerations for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations: []
+## @param affinity Affinity for deployment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+##
+affinity: {}
+## Node affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+## @param nodeAffinityPreset.key Node label key to match. Ignored if `affinity` is set.
+## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
+## @param nodeAffinityPreset.values Node label values to match. Ignored if `affinity` is set.
+##
+nodeAffinityPreset:
+  ## e.g:
+  ## key: "kubernetes.io/e2e-az-name"
+  ##
+  key: ""
+  type: ""
+  ## e.g:
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+## @param podAffinityPreset Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`.
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAffinityPreset: ""
+## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`.
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAntiAffinityPreset: soft
+
+## Topology spread constraints rely on node labels to identify the topology domain(s) that each Node is in.
+## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: failure-domain.beta.kubernetes.io/zone
+  #   whenUnsatisfiable: DoNotSchedule
+  #   labelSelector:
+  #     matchLabels:
+  #       app.kubernetes.io/instance: alertmanager
+
+## @param web.terminationGracePeriodSeconds Seconds pod needs to terminate gracefully
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
+##
+terminationGracePeriodSeconds: ""
+
+## Configure pods Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## @param podSecurityContext.enabled Enabled pods' Security Context
+## @param podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
+## @param podSecurityContext.sysctls Set kernel settings using the sysctl interface
+## @param podSecurityContext.supplementalGroups Set filesystem extra groups
+## @param podSecurityContext.fsGroup Set pod's Security Context fsGroup
+##
+podSecurityContext: {}
+## Configure containers (only main one) Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+## @param containerSecurityContext.enabled Enabled containers' Security Context
+## @param containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
+## @param containerSecurityContext.runAsUser Set containers' Security Context runAsUser
+## @param containerSecurityContext.runAsNonRoot Set containers' Security Context runAsNonRoot
+## @param containerSecurityContext.privileged Set web container's Security Context privileged
+## @param containerSecurityContext.allowPrivilegeEscalation Set web container's Security Context allowPrivilegeEscalation
+## @param containerSecurityContext.capabilities.drop List of capabilities to be dropped
+## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
+##
+containerSecurityContext: {}
+## @param automountServiceAccountToken Mount Service Account token in pod
+##
+automountServiceAccountToken: false
+
+## @param hostAliases Deployment pod host aliases
+## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+##
+hostAliases: []
+
+## @param extraEnvVars Add extra environment variables to the container
+## E.g:
+## extraEnvVars:
+##   - name: FOO
+##     value: "bar"
+##
+extraEnvVars: []
+## @param extraEnvVarsCM ConfigMap containing extra environment variables for pods
+##
+extraEnvVarsCM: ""
+## @param extraEnvVarsSecret Secret containing extra environment variables (in case of sensitive data) for pods
+##
+extraEnvVarsSecret: ""
+## @param extraEnvVarsSecrets List of secrets with extra environment variables for all the pods
+##
+extraVolumeMounts: []
+
+## @param extraVolumes Optionally specify extra list of additional volumes for the all the pods
+##
+extraVolumes: []
+
+## @section Network Policies
+
+## Ref: https://kubernetes.io/docs/concepts/services-networking/network-policies/
+##
+networkPolicy:
+  ## @param web.networkPolicy.enabled Specifies whether a NetworkPolicy should be created
+  ##
+  enabled: true
+  ## @param networkPolicy.allowExternal Don't require client label for connections
+  ## The Policy model to apply. When set to false, only pods with the correct
+  ## client label will have network access to the ports Web is listening
+  ## on. When true, Web will accept connections from any source
+  ## (with the correct destination port).
+  ##
+  allowExternal: true
+  ## @param networkPolicy.extraIngress [array] Add extra ingress rules to the NetworkPolice
+  ## e.g:
+  ## extraIngress:
+  ##   - ports:
+  ##       - port: 1234
+  ##     from:
+  ##       - podSelector:
+  ##           - matchLabels:
+  ##               - role: frontend
+  ##       - podSelector:
+  ##           - matchExpressions:
+  ##               - key: role
+  ##                 operator: In
+  ##                 values:
+  ##                   - frontend
+  extraIngress: []
+  ## @param networkPolicy.extraEgress [array] Add extra ingress rules to the NetworkPolicy
+  ## e.g:
+  ## extraEgress:
+  ##   - ports:
+  ##       - port: 1234
+  ##     to:
+  ##       - podSelector:
+  ##           - matchLabels:
+  ##               - role: frontend
+  ##       - podSelector:
+  ##           - matchExpressions:
+  ##               - key: role
+  ##                 operator: In
+  ##                 values:
+  ##                   - frontend
+  ##
+  extraEgress: []
+  ## @param networkPolicy.ingressNSMatchLabels [object] Labels to match to allow traffic from other namespaces
+  ## @param networkPolicy.ingressNSPodMatchLabels [object] Pod labels to match to allow traffic from other namespaces
+  ##
+  ingressNSMatchLabels: {}
+  ingressNSPodMatchLabels: {}
+
+## @section Service Account
+
+serviceAccount:
+  ## @param serviceAccount.create Enable creation of ServiceAccount for pods
+  ##
+  create: true
+  ## @param serviceAccount.name The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the common.names.fullname template
+  ##
+  name: ""
+  ## @param serviceAccount.automountServiceAccountToken Allows auto mount of ServiceAccountToken on the serviceAccount created
+  ## Can be set to false if pods using this serviceAccount do not need to use K8s API
+  ##
+  automountServiceAccountToken: true
+  ## @param serviceAccount.annotations Additional custom annotations for the ServiceAccount
+  ##
+  annotations: {}
+
+## Role Based Access
+## Ref: https://kubernetes.io/docs/admin/authorization/rbac/
+## @param rbac.create Create Role and RoleBinding
+## @param rbac.create_cluster Create ClusterRole and ClusterRoleBinding
+##
+rbac:
+  create: false
+  create_cluster: false
+  ## @param rbac.rules Custom RBAC rules to set
+  ## e.g:
+  ## rules:
+  ##   - apiGroups:
+  ##       - ""
+  ##     resources:
+  ##       - pods
+  ##     verbs:
+  ##       - get
+  ##       - list
+  ##
+  rules: []
+  rules_cluster: []
+
+## @section Service
+
+service:
+  ## @param service.type service type
+  ##
+  type: ClusterIP
+  ## @param service.ports.http service HTTP port
+  ##
+  ports:
+    http: 8080
+  ## Node ports to expose
+  ## @param service.nodePorts.http Node port for HTTP
+  ## NOTE: choose port between <30000-32767>
+  ##
+  nodePorts:
+    http: ""
+  ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
+  ## Values: ClientIP or None
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/
+  ##
+  sessionAffinity: None
+  ## @param service.sessionAffinityConfig Additional settings for the sessionAffinity
+  ## sessionAffinityConfig:
+  ##   clientIP:
+  ##     timeoutSeconds: 300
+  ##
+  sessionAffinityConfig: {}
+  ## @param service.clusterIP service Cluster IP
+  ## e.g.:
+  ## clusterIP: None
+  ##
+  clusterIP: ""
+  ## @param service.loadBalancerIP service Load Balancer IP
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
+  ##
+  loadBalancerIP: ""
+  ## @param service.loadBalancerSourceRanges service Load Balancer sources
+  ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ## e.g:
+  ## loadBalancerSourceRanges:
+  ##   - 10.10.10.0/24
+  ##
+  loadBalancerSourceRanges: []
+  ## @param service.externalTrafficPolicy service external traffic policy
+  ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Cluster
+  ## @param service.annotations Additional custom annotations for service
+  ##
+  annotations: {}
+  ## @param service.extraPorts Extra port to expose on service
+  ##
+  extraPorts: []
+
+## @section Ingress
+
+ingress:
+  ## @param ingress.enabled Enable ingress record generation
+  ##
+  enabled: false
+  ## @param ingress.className IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+  ##
+  className: ""
+  ## @param ingress.hostname Default host for the ingress record
+  ##
+  hostname: ""
+  ## @param ingress.path Default path for the ingress record
+  ##
+  path: /
+  ## @param ingress.corsAllowedOrigins List of allowed origins for CORS
+  ##
+  corsAllowedOrigins: []
+  ## @param ingress.corsAllowedHeaders List of allowed request headers for CORS
+  ##
+  corsAllowedHeaders: []
+  ## @param ingress.frameAncestors List of frame-ancestors for content security policy
+  ##
+  frameAncestors: []
+
+## @section Tests
+
+test:
+  enabled: false
+  container: []

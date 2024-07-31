@@ -1,0 +1,90 @@
+# Deployment config
+image:
+  repository: northamerica-northeast2-docker.pkg.dev/tcinc-dev/kubert-images/plugin-gateway
+  tag: ed74444
+
+## Container Http port
+containerPortHttp: 3000
+
+## Resource allocation for the main container
+resources:
+  limits:
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    cpu: 50m
+    memory: 128Mi
+
+## Environment variables
+extraEnvVars:
+- name: BASE_URL_KUBECTL
+  value: http://command-runner-kubert-assistant-workload.kubert-assistant.svc.cluster.local:8080/command/kubectl
+- name: LOG_LEVEL
+  value: debug
+- name: PROBE_PORT
+  value: "3200"
+
+## Probes  
+livenessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /live
+    port: 3200
+  initialDelaySeconds: 10
+  periodSeconds: 30
+  successThreshold: 1
+  timeoutSeconds: 5
+readinessProbe:
+  failureThreshold: 1
+  httpGet:
+    path: /ready
+    port: 3200
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 5
+
+## Pod security context
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+  runAsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+
+## Container security context
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  enabled: true
+  privileged: false
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1001
+
+# RBAC for the gateway
+rbac:
+  create: true
+
+# Network policy config
+networkPolicy:
+  enabled: false
+
+# Ingress config
+ingress:
+  enabled: true
+  className: nginx
+  corsAllowedHeaders:
+  - x-lobe-chat-auth
+  - x-lobe-plugin-settings
+  - x-lobe-trace
+  - content-type
+  corsAllowedOrigins:
+  - http://kubert-plugin-gateway.lan
+  - http://kubert-assistant.lan  
+  frameAncestors:
+  - self
+  - http://kubert-assistant.lan
+  hostname: kubert-plugin-gateway.lan

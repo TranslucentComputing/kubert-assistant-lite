@@ -1,0 +1,22 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  # Only IPv4
+  ipFamily: ipv4
+  # 512 IP's for pods
+  podSubnet: "10.10.0.0/23"
+  # 256 IP's for services
+  serviceSubnet: "10.20.0.0/24"
+nodes:
+- role: control-plane
+  # Node label used by Ingress controller nodeSelector
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP

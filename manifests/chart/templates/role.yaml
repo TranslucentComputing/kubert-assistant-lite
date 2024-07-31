@@ -1,0 +1,54 @@
+{{- if .Values.rbac.create -}}
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: Role
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" $) | nindent 4 }}
+  {{- end }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - "pods"
+    verbs:
+      - "get"       # Permission to get pod information
+      - "list"      # Permission to list pods
+      - "watch"     # Permission to watch for changes to pods
+  - apiGroups:
+      - ""
+    resources:
+      - "pods/log"
+    verbs:
+      - "get"       # Permission to get logs from pods
+  - apiGroups:
+      - ""
+    resources:
+      - "pods/exec"
+    verbs:
+      - "create"    # Permission to execute commands in a pod (troubleshooting)
+      - "get"       # Permission to retrieve necessary information for exec session
+  {{- if .Values.rbac.rules }}
+  {{- include "common.tplvalues.render" ( dict "value" .Values.rbac.rules "context" $ ) | nindent 2 }}
+  {{- end }}
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: RoleBinding
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" $) | nindent 4 }}
+  {{- end }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "workload.serviceAccountName" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+roleRef:
+  kind: Role
+  name: {{ include "common.names.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end -}}

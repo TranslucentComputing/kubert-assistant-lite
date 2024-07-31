@@ -1,0 +1,24 @@
+{{- if .Values.test.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ include "common.names.fullname" . }}-test-connection"
+  namespace: {{ include "common.names.namespace" . | quote }}
+  {{- $versionLabel := dict "app.kubernetes.io/version" ( include "common.images.version" ( dict "imageRoot" .Values.image "chart" .Chart ) ) }}
+  {{- $labels := include "common.tplvalues.merge" ( dict "values" ( list .Values.commonLabels $versionLabel ) "context" . ) }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" $labels "context" $ ) | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.standard" ( dict "customLabels" $labels "context" $ ) | nindent 8 }}        
+    spec:
+      {{- if .Values.test.container }}
+      containers:        
+        {{- include "common.tplvalues.render" (dict "value" .Values.test.container "context" $) | trim | nindent 8 }}
+      {{- end }}
+      restartPolicy: Never
+  backoffLimit: 1
+{{- end }}

@@ -1,0 +1,98 @@
+# Deployment config
+
+## Automatically mount token to the pod after it has been created
+automountServiceAccountToken: true
+
+## Image from Kubert Images public docker repo
+image:
+  pullPolicy: IfNotPresent
+  repository: northamerica-northeast2-docker.pkg.dev/tcinc-dev/kubert-images/command-runner
+  tag: 5842fe7
+
+## Container Http port
+containerPortHttp: 3000
+
+## Resource allocation for the main container
+resources:
+  limits:
+    cpu: 300m
+    memory: 728Mi
+  requests:
+    cpu: 200m
+    memory: 128Mi
+
+## Environment variables
+extraEnvVars:
+- name: HOST
+  value: 0.0.0.0
+- name: LOG_LEVEL
+  value: debug
+- name: LOG_PATH
+  value: logging.json
+
+## Probes
+livenessProbe: {}
+readinessProbe: {}
+
+## Pod security context
+podSecurityContext:
+  enabled: true
+  fsGroup: 10000
+  fsGroupChangePolicy: Always
+  supplementalGroups: []
+  sysctls: []
+
+## Container security context
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  enabled: true
+  privileged: false
+  runAsNonRoot: true
+  runAsUser: 10001
+  seLinuxOptions: null
+  seccompProfile:
+    type: RuntimeDefault
+
+# RBAC for the command runner
+rbac:
+  create: true
+  create_cluster: true
+  rules: []
+  rules_cluster:
+  - apiGroups:
+    - '*'
+    resources:
+    - '*'
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - patch
+    - delete
+
+# Network policy config
+networkPolicy:
+  enabled: true
+  allowExternal: true
+  extraEgress: []
+
+# Test config
+test:
+  enabled: true
+  container:
+    - name: curl
+      image: "curlimages/curl"
+      env:
+      - name: "HOST"
+        value: |-
+          {{ include "common.names.fullname" . }}:{{ .Values.service.ports.http }}
+      command:
+        - sh
+        - -c
+        - >
+          response=$(curl -s -o /dev/stderr -w "%{http_code}" -X POST -d '{"command": "kubectl get pods"}' -H "Content-Type: application/json" $HOST/command/kubectl);
+          if [ $response -ne 200 ]; then exit 1; fi
