@@ -1,4 +1,4 @@
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+name: Deploy Jekyll site to Pages
 
 on:  
   push:
@@ -32,7 +32,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-        with:          
+        with:     
+          ruby-version: '3.3.1'
           bundler-cache: true
           cache-version: 0
           working-directory: '${{ github.workspace }}/docs'
