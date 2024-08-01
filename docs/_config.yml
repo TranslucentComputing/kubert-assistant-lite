@@ -1,0 +1,14 @@
+remote_theme: carlosperate/jekyll-theme-rtd
+title: Kubert Assistant Lite
+description: This project is the lite version of Kubert Assistant. It allows user to deploy and test Kubert Assistant.
+search_enabled: false
+sticky_navigation: true
+prev_next_buttons_location: None
+edit_on_github: false
+site_author: TC Team
+github_docs_folder: true
+repo_url: "https://github.com/TranslucentComputing/kubert-assistant-lite"
+hljs_style: github-gist
+logo: "https://www.translucentcomputing.com/wp-content/uploads/2022/05/logo.svg"
+google_analytics:
+google_analytics_anonymize_ip: true
