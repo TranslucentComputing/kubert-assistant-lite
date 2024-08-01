@@ -122,14 +122,24 @@ cleanup-kubert-assistant: ## Uninstall deployed Kubert Assistant components with
 cleanup: ## Clean up kind cluster and hosts file
 	$(Q)LOG_TO_TERMINAL=true $(SCRIPTS_DIR)/cleanup.sh
 
-# Dependency check
-.PHONY: check-deps
-check-deps: ## Check for required dependencies
+# Dependency check for development
+.PHONY: check-deps-dev
+check-deps-dev: ## Check for required dependencies for development
+	$(Q)command -v docker >/dev/null 2>&1 || { echo >&2 "Docker is not installed. Aborting."; exit 1; }
+	$(Q)command -v kind >/dev/null 2>&1 || { echo >&2 "Kind is not installed. Aborting."; exit 1; }
+	$(Q)command -v kubectl >/dev/null 2>&1 || { echo >&2 "Kubectl is not installed. Aborting."; exit 1; }
+	$(Q)command -v helm >/dev/null 2>&1 || { echo >&2 "Helm is not installed. Aborting."; exit 1; }	
+	$(Q)command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not installed. Aborting."; exit 1; }
+	$(Q)[ -x "$(BATS)" ] || { echo >&2 "Bats is not installed or not executable. Aborting."; exit 1; }
+
+# Dependency check for deployment
+.PHONY: check-deps-deploy
+check-deps-deploy: ## Check for required dependencies for deployment
 	$(Q)command -v docker >/dev/null 2>&1 || { echo >&2 "Docker is not installed. Aborting."; exit 1; }
 	$(Q)command -v kind >/dev/null 2>&1 || { echo >&2 "Kind is not installed. Aborting."; exit 1; }
 	$(Q)command -v kubectl >/dev/null 2>&1 || { echo >&2 "Kubectl is not installed. Aborting."; exit 1; }
 	$(Q)command -v helm >/dev/null 2>&1 || { echo >&2 "Helm is not installed. Aborting."; exit 1; }
-	$(Q)[ -x "$(BATS)" ] || { echo >&2 "Bats is not installed or not executable. Aborting."; exit 1; }
+	$(Q)command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not installed. Aborting."; exit 1; }
 
 # Lint the Helm chart
 .PHONY: lint
