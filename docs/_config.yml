@@ -1,14 +1,58 @@
-remote_theme: carlosperate/jekyll-theme-rtd
 title: Kubert Assistant Lite
-description: This project is the lite version of Kubert Assistant. It allows user to deploy and test Kubert Assistant.
-search_enabled: false
-sticky_navigation: true
-prev_next_buttons_location: None
-edit_on_github: false
-site_author: TC Team
-github_docs_folder: true
-repo_url: "https://github.com/TranslucentComputing/kubert-assistant-lite"
-hljs_style: github-gist
-logo: "https://www.translucentcomputing.com/wp-content/uploads/2022/05/logo.svg"
-google_analytics:
-google_analytics_anonymize_ip: true
+email: patryk@translucentcomputing.com
+description: >-
+  Kubert Assistant Lite is a productivity system for DevOps.
+  It combines the GenAI with Kubernetes to provide out-of-the-box
+  solutions for optimizing DevOps work.
+baseurl: ""
+url: "https://translucentcomputing.github.io/kubert-assistant-lite/"
+twitter_username:
+github_username:  patrykattc
+logo: "/assets/images/kubert-logo.png"
+favicon_ico: "/assets/images/favicon.ico"
+search_enabled: true
+search:
+  # Split pages into sections that can be searched individually
+  # Supports 1 - 6, default: 2
+  heading_level: 2
+  # Maximum amount of previews per search result
+  # Default: 3
+  previews: 3
+  # Maximum amount of words to display before a matched word in the preview
+  # Default: 5
+  preview_words_before: 5
+  # Maximum amount of words to display after a matched word in the preview
+  # Default: 10
+  preview_words_after: 10
+  # Set the search token separator
+  # Default: /[\s\-/]+/
+  # Example: enable support for hyphenated search words
+  tokenizer_separator: /[\s/]+/
+  # Display the relative url in search results
+  # Supports true (default) or false
+  rel_url: true
+  # Enable or disable the search button that appears in the bottom right corner of every page
+  # Supports true or false (default)
+  button: false
+  # Focus the search input by pressing `ctrl + focus_shortcut_key` (or `cmd + focus_shortcut_key` on macOS)
+  focus_shortcut_key: 'k'
+
+# Footer last edited timestamp
+last_edit_timestamp: true
+last_edit_time_format: "%b %e %Y at %I:%M %p"
+
+# Footer "Edit this page on GitHub" link text
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub."
+gh_edit_repository: "https://github.com/TranslucentComputing/kubert-assistant-lite"
+gh_edit_branch: "main"
+gh_edit_view_mode: "tree"
+
+# Google Analytics Tracking (optional)
+ga_tracking:
+ga_tracking_anonymize_ip: true
+
+# Build settings
+theme: just-the-docs
+plugins:
+  - jekyll-feed
