@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem "just-the-docs"
+gem "just-the-docs", "0.8.2"
 gem "github-pages", group: :jekyll_plugins
 gem 'csv'        # Required for Ruby 3.4.0+
 gem 'webrick'    # Required for Ruby 3.0.0+
