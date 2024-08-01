@@ -219,20 +219,41 @@ update_hosts_file() {
             fi
         done
 
-        # Detect if running on WSL and update the Windows hosts file
-        if grep -qi microsoft /proc/version; then
+        # Detect if running on WSL or PowerShell and update the Windows hosts file
+        if grep -qi microsoft /proc/version || command -v powershell.exe &> /dev/null; then
             local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
+            temp_file=$(mktemp)
+            sudo cp "${windows_hosts_file}" "${temp_file}"
+            
             for domain in "${hosts_entries[@]}"; do
-                entry="$host_ip $domain"
-                if ! grep -q "$entry" "$windows_hosts_file"; then
-                    echo "$entry" | sudo tee -a "$windows_hosts_file"
+                entry="${host_ip} ${domain}"
+                hostname=$(echo "$entry" | awk '{print $2}')
+                if ! grep -q "$entry" "${temp_file}"; then
+                    sudo sed -i "\$a${entry}" "${temp_file}"
                     log "INFO" "Added $entry to $windows_hosts_file"
                 else
                     log "INFO" "$entry already exists in $windows_hosts_file"
                 fi
             done
-            # Flush DNS cache on Windows
-            powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs"
+
+            # Convert WSL path to Windows path
+            temp_windows_path=$(wslpath -w "${temp_file}")
+
+            # Use PowerShell to move the file with elevated permissions
+            powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+
+            if [ $? -ne 0 ]; then
+                echo "Failed to update hosts file. Please run the script as an administrator."
+                exit 1
+            fi
+
+            # Flush DNS cache on Windows with elevated permissions
+            powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+
+            if [ $? -ne 0 ]; then
+                echo "Failed to flush DNS cache. Please run the script as an administrator."
+                exit 1
+            fi
         fi
     else
         log "INFO" "Aborted updating the hosts file."
@@ -276,8 +297,8 @@ clean_up_hosts_file() {
     # Move the temp file back to the hosts file using sudo
     sudo mv "${temp_file}" "${HOSTS_FILE_PATH}"
 
-    # Detect if running on WSL and update the Windows hosts file
-    if grep -qi microsoft /proc/version; then
+    # Detect if running on WSL or PowerShell and update the Windows hosts file
+    if grep -qi microsoft /proc/version || command -v powershell.exe &> /dev/null; then
         local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
         temp_file=$(mktemp)
         sudo cp "${windows_hosts_file}" "${temp_file}"
@@ -287,9 +308,25 @@ clean_up_hosts_file() {
             sudo sed -i.bak "/[[:space:]]${hostname}[[:space:]]*$/d" "${temp_file}"
             log "INFO" "Removed $entry from $windows_hosts_file"
         done
-        sudo mv "${temp_file}" "${windows_hosts_file}"
-        # Flush DNS cache on Windows
-        powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs"
+
+        # Convert WSL path to Windows path
+        temp_windows_path=$(wslpath -w "${temp_file}")
+
+        # Use PowerShell to move the file with elevated permissions
+        powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+
+        if [ $? -ne 0 ]; then
+            echo "Failed to move hosts file. Please run the script as an administrator."
+            exit 1
+        fi
+
+        # Flush DNS cache on Windows with elevated permissions
+        powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+
+        if [ $? -ne 0 ]; then
+            echo "Failed to flush DNS cache. Please run the script as an administrator."
+            exit 1
+        fi
     fi
 }
 
