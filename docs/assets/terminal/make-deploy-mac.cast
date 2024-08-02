@@ -471,7 +471,7 @@
 [309.775556, "o", "s"]
 [310.395714, "o", "\r\n"]
 [310.395891, "o", "Please enter your OpenAI API key: "]
-[311.521343, "o", "sk-lobchat-sa-ZTFFCjnFeUowj9gB9mZQT3BlbkFJY5iSllsDGVWFlIPiBIW7"]
+[311.521343, "o", "sk-xxxxxxx"]
 [312.303909, "o", "\r\n"]
 [312.40453, "o", "\u001b[0;32m2024-08-02 14:25:41 [INFO]: Deploying command-runner using Helm...\u001b[0m\r\n"]
 [312.829512, "o", "Release \"command-runner\" does not exist. Installing it now.\r\n"]

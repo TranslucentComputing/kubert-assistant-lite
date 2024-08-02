@@ -39,7 +39,13 @@ Ensure you have the following software installed:
    git submodule update --init --recursive
    ```
 
-3. **Deploy the Kind Cluster and Application**
+3. **Check deployment dependencies.**
+
+    ```bash
+    make check-deps-deploy
+    ```
+
+4. **Deploy the Kind Cluster and Application**
 
     Use the Makefile to deploy:
 
@@ -49,11 +55,21 @@ Ensure you have the following software installed:
 
     This command will set up the Kind cluster and deploy the application using Helm. During the deployment `OPENAI_API_KEY` will be requested as well as the system password to update `/etc/hosts` file with the local domains. For Windows users the user admin password is required to update `c:\Windows\System32\Drivers\etc\hosts`.
 
+5. **Open browser to [http://kubert-assistant.lan/](http://kubert-assistant.lan/){:target="_blank"}**
+
+6. **Clean Up - Delete cluster and the Kubert Assistant Lite**
+
+   ```bash
+   make cleanup
+   ```
+
 ## Terminal Deployment
 
 <script src="/kubert-assistant-lite/assets/js/asciinema-player.min.js"></script>
 
-### Make Deploy - Mac
+### Make Deploy
+
+#### Mac Version
 
 Example running `make deploy` in iTerminal on a Mac.
 
@@ -62,7 +78,9 @@ Example running `make deploy` in iTerminal on a Mac.
     AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-deploy-mac.cast', document.getElementById('make-deploy-mac'));
 </script>
 
-### Make Cleanup - Mac
+### Make Cleanup
+
+#### Mac Version
 
 Example running `make cleanup` in iTerminal on a Mac.
 
