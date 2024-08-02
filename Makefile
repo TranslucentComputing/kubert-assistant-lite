@@ -131,6 +131,7 @@ check-deps-dev: ## Check for required dependencies for development
 	$(Q)command -v helm >/dev/null 2>&1 || { echo >&2 "Helm is not installed. Aborting."; exit 1; }	
 	$(Q)command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not installed. Aborting."; exit 1; }
 	$(Q)[ -x "$(BATS)" ] || { echo >&2 "Bats is not installed or not executable. Aborting."; exit 1; }
+	$(Q)echo "All development dependencies are installed."
 
 # Dependency check for deployment
 .PHONY: check-deps-deploy
@@ -140,6 +141,7 @@ check-deps-deploy: ## Check for required dependencies for deployment
 	$(Q)command -v kubectl >/dev/null 2>&1 || { echo >&2 "Kubectl is not installed. Aborting."; exit 1; }
 	$(Q)command -v helm >/dev/null 2>&1 || { echo >&2 "Helm is not installed. Aborting."; exit 1; }
 	$(Q)command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not installed. Aborting."; exit 1; }
+	$(Q)echo "All deployment dependencies are installed."
 
 # Lint the Helm chart
 .PHONY: lint
