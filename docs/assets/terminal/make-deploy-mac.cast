@@ -139,7 +139,7 @@
 [29.430431, "o", "s"]
 [30.056873, "o", "\r\n"]
 [30.056986, "o", "Please enter your OpenAI API key: "]
-[31.216306, "o", "sk-lobchat-sa-ZTFFCjnFeUowj9gB9mZQT3BlbkFJY5iSllsDGVWFlIPiBIW7"]
+[31.216306, "o", "sk-xxxxxx"]
 [32.182102, "o", "\r\n"]
 [32.26378, "o", "\u001b[0;32m2024-08-02 10:13:37 [INFO]: Deploying command-runner using Helm...\u001b[0m\r\n"]
 [34.007165, "o", "Release \"command-runner\" has been upgraded. Happy Helming!\r\nNAME: command-runner\r\nLAST DEPLOYED: Fri Aug  2 10:13:38 2024\r\nNAMESPACE: kubert-assistant\r\nSTATUS: deployed\r\nREVISION: 3\r\n"]
