@@ -4,8 +4,8 @@ description: >-
   Kubert Assistant Lite is a productivity system for DevOps.
   It combines the GenAI with Kubernetes to provide out-of-the-box
   solutions for optimizing DevOps work.
-baseurl: ""
-url: "https://translucentcomputing.github.io/kubert-assistant-lite"
+baseurl: "/kubert-assistant-lite" # Repository name
+url: "https://translucentcomputing.github.io"
 twitter_username:
 github_username:  patrykattc
 logo: "/assets/images/kubert-logo.png"
