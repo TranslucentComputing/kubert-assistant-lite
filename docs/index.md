@@ -24,5 +24,3 @@ Kubert Assistant Lite is a lightweight open-source project that enables the depl
 - Simplify local Kubernetes cluster setup.
 - Provide a testbed for Kubert Assistant's functionalities.
 - Allow developers to experiment with the Kubectl Agent's capabilities.
-
-For more details, please refer to the [Installation Guide](installation.md) and [Usage Instructions](usage.md).
