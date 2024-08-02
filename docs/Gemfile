@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 gem "jekyll", "~> 4.3.3"
 gem "just-the-docs"
+gem 'base64'
 gem 'csv'        # Required for Ruby 3.4.0+
 gem 'webrick'    # Required for Ruby 3.0.0+
 gem 'faraday-retry' # If using Faraday v2.0+
