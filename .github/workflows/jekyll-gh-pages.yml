@@ -29,11 +29,10 @@ jobs:
         working-directory: docs
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-        with:     
-          ruby-version: '3.3.1'
+        with:          
           bundler-cache: true
           cache-version: 0
           working-directory: '${{ github.workspace }}/docs'
@@ -44,7 +43,7 @@ jobs:
         env:
           JEKYLL_ENV: production
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: "docs/_site/"
 
@@ -58,4 +57,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4.0.5
