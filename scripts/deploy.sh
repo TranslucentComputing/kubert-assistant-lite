@@ -63,6 +63,9 @@ deploy_kubert_assistant "${CHART_PATH}" "${HELM_NAMESPACE}" "${KIND_CLUSTER_NAME
 # Wait for the ingresses to have an address
 wait_for_ingress_ready "${HELM_NAMESPACE}"
 
+# Check if the application is accessible
+wait_for_service "http://kubert-assistant.lan"
+
 log "INFO" "Deployment process completed successfully."
 log "INFO" "You can now access Kubert Assistant at http://kubert-assistant.lan"
 log "INFO" "The access code to use is 'kubert'."

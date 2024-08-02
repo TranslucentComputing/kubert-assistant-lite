@@ -16,6 +16,10 @@ setup() {
     # Create a temporary directory for mocks
     MOCK_DIR=$(mktemp -d)
     export PATH="$MOCK_DIR:$PATH"
+
+    # Create a temporary file for CURL_OUTPUT
+    CURL_OUTPUT_FILE=$(mktemp)
+    export CURL_OUTPUT_FILE
     
     # Initial mock kubectl to handle different cases
     cat << 'EOF' > "$MOCK_DIR/kubectl"
@@ -81,12 +85,30 @@ case "$1 $2" in
 esac
 EOF
     chmod +x "$MOCK_DIR/kubectl"
+
+    # Mock curl command for testing wait_for_service
+    cat << 'EOF' > "$MOCK_DIR/curl"
+#!/usr/bin/env bash
+if [[ "$1" == "--fail" && "$2" == "--silent" && "$3" == "--head" ]]; then
+    if [[ -s "$CURL_OUTPUT_FILE" ]]; then        
+        cat "$CURL_OUTPUT_FILE"
+        exit 0
+    else
+        exit 1
+    fi
+else
+    echo "curl $@"
+    exit 0
+fi
+EOF
+    chmod +x "$MOCK_DIR/curl"
 }
 
 teardown() {
     # Clean up the temporary log file and mock directory after tests
     rm -f "$TEMP_LOG_FILE"
     rm -rf "$MOCK_DIR"
+    rm -f "$CURL_OUTPUT_FILE"
 }
 
 @test "wait_for_nodes should succeed when all nodes are ready" {
@@ -144,4 +166,43 @@ teardown() {
     assert_failure
     run tail -n 1 "$TEMP_LOG_FILE"
     assert_output --partial "[ERROR]: Timeout reached. Not all ingresses in namespace default have an address."
+}
+
+@test "wait_for_service should succeed when the service is available immediately" {
+    echo "HTTP/1.1 200 OK" > "$CURL_OUTPUT_FILE"  # Simulate immediate availability
+
+    run wait_for_service "http://example.com" 1 0.5
+    assert_success
+
+    run tail -n 1 "$TEMP_LOG_FILE"
+    assert_output --partial "[INFO]: Service is available at http://example.com"
+}
+
+@test "wait_for_service should fail when the service is not available within timeout" {
+    echo -n "" > "$CURL_OUTPUT_FILE"  # Simulate unavailability
+
+    run wait_for_service "http://example.com" 3 1
+    assert_failure
+
+    run tail -n 1 "$TEMP_LOG_FILE"
+    assert_output --partial "[ERROR]: Service at http://example.com did not become available after"
+}
+
+@test "wait_for_service should succeed when the service becomes available after a delay" {
+    echo -n "" > "$CURL_OUTPUT_FILE"  # Start with no response
+
+    # Set a delay for when the CURL_OUTPUT should be available
+    (
+        sleep 1  # Simulates the service becoming available after 1 second
+        echo "HTTP/1.1 200 OK" > "$CURL_OUTPUT_FILE"
+    ) &
+
+    # Ensure we wait for the background process
+    run wait_for_service "http://example.com" 5 0.5
+    wait  # Wait for all background processes to finish
+
+    assert_success
+
+    run tail -n 1 "$TEMP_LOG_FILE"
+    assert_output --partial "[INFO]: Service is available at http://example.com"
 }

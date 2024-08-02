@@ -51,10 +51,22 @@ Ensure you have the following software installed:
 
 ## Terminal Deployment
 
+<script src="/kubert-assistant-lite/assets/js/asciinema-player.min.js"></script>
+
+### Make Deploy - Mac
+
 Example running `make deploy` in iTerminal on a Mac.
 
-<div id="make-deploy"></div>
-<script src="/kubert-assistant-lite/assets/js/asciinema-player.min.js"></script>
+<div id="make-deploy-mac"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-deploy-mac.cast', document.getElementById('make-deploy'));
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-deploy-mac.cast', document.getElementById('make-deploy-mac'));
+</script>
+
+### Make Cleanup - Mac
+
+Example running `make cleanup` in iTerminal on a Mac.
+
+<div id="make-cleanup-mac"></div>
+<script>
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-cleanup-mac.cast', document.getElementById('make-cleanup-mac'));
 </script>

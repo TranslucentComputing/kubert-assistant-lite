@@ -778,3 +778,38 @@ wait_for_ingress_ready() {
         sleep $interval
     done
 }
+
+# -----------------------------------------------------------------------------
+# Function: wait_for_service
+# Description: Waits for a service to become available by checking its HTTP status.
+# Parameters:
+#   $1 - URL to check
+#   $2 - (Optional) Maximum number of attempts (default: 30)
+#   $3 - (Optional) Sleep time between attempts in seconds (default: 10)
+# -----------------------------------------------------------------------------
+wait_for_service() {
+    local url="$1"
+    local max_attempts="${2:-30}"
+    local attempt=1
+    local sleep_time="${3:-10}"
+    local start_time
+    local elapsed_time
+
+    log "INFO" "Waiting for the service to become available at $url..."
+
+    start_time=$(date +%s)
+
+    until curl --fail --silent --head "$url" > /dev/null; do
+        if (( attempt == max_attempts )); then
+            elapsed_time=$(( $(date +%s) - start_time ))
+            log "ERROR" "Service at $url did not become available after $elapsed_time seconds."
+            exit 1
+        fi
+        log "INFO" "Attempt $attempt/$max_attempts: Service not yet available, retrying in ${sleep_time}s..."
+        sleep "$sleep_time"
+        ((attempt++))
+    done
+
+    elapsed_time=$(( $(date +%s) - start_time ))
+    log "INFO" "Service is available at $url after $elapsed_time seconds."
+}
