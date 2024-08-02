@@ -1,3 +1,28 @@
 ---
 layout: default
+title: Home
+nav_nabled: true
 ---
+
+# Kubert Assistant Lite
+
+Kubert Assistant Lite is a lightweight open-source project that enables the deployment of a Kubernetes cluster using Kind and the deployment of Kubert Assistant with a single AI agent—the Kubectl Agent. This document provides a high-level overview of the project's architecture and components.
+
+## Project Architecture
+
+- **Kind Cluster**: Uses Kubernetes in Docker (Kind) to create a local cluster for testing and development.
+- **Kubectl Agent**: An AI agent capable of executing `kubectl` commands within the cluster, providing insights and automation capabilities.
+
+## Components
+
+1. **Scripts**: Automate the setup and teardown processes, including utility functions and validation checks.
+2. **Helm Charts**: Manage the deployment of Kubernetes components.
+3. **Makefile**: Simplifies the execution of complex command sequences for deployment and testing.
+
+## Goals
+
+- Simplify local Kubernetes cluster setup.
+- Provide a testbed for Kubert Assistant's functionalities.
+- Allow developers to experiment with the Kubectl Agent's capabilities.
+
+For more details, please refer to the [Installation Guide](installation.md) and [Usage Instructions](usage.md).
