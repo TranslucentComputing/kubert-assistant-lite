@@ -49,7 +49,7 @@ gh_edit_branch: "main"
 gh_edit_view_mode: "tree"
 
 # Google Analytics Tracking (optional)
-ga_tracking:
+ga_tracking: G-Q7QDCP3CE4
 ga_tracking_anonymize_ip: true
 
 # Build settings
