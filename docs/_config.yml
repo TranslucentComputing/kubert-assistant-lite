@@ -1,7 +1,7 @@
-title: Kubert Assistant Lite
+title: Kubert AI Assistant Lite
 email: patryk@translucentcomputing.com
 description: >-
-  Kubert Assistant Lite is a productivity system for DevOps.
+  Kubert AI Assistant Lite is a productivity system for DevOps.
   It combines the GenAI with Kubernetes to provide out-of-the-box
   solutions for optimizing DevOps work.
 baseurl: "/kubert-assistant-lite" # Repository name
@@ -59,7 +59,7 @@ plugins:
 
 # Aux links for the upper right navigation
 aux_links:
-  "Kubert Assistant Lite GitHub":
+  "Kubert AI Assistant Lite GitHub":
     - "https://github.com/TranslucentComputing/kubert-assistant-lite"
 
 # Makes Aux links open in a new tab. Default is false

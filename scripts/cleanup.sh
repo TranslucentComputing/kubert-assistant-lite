@@ -2,7 +2,7 @@
 
 # -----------------------------------------------------------------------------
 # Script Name: cleanup.sh
-# Description: This script cleans up the Kubert Assistant Lite application by
+# Description: This script cleans up the Kubert AI Assistant Lite application by
 #              removing the kind Kubernetes cluster and cleaning up the hosts file.
 #
 # Usage:       ./cleanup.sh

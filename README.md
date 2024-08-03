@@ -1,12 +1,12 @@
-# Kubert Assistant Lite Project
+# Kubert AI Assistant Lite Project
 
-Kubert Assistant Lite is an open-source project designed to deploy a lightweight version of Kubert Assistant in a local Kind (Kubernetes in Docker) cluster. This version includes a single AI agent, the Kubectl Agent, which can execute `kubectl` commands within the cluster.
+Kubert AI Assistant Lite is an open-source project designed to deploy a lightweight version of Kubert Assistant in a local Kind (Kubernetes in Docker) cluster. This version includes a single AI agent, the Kubectl Agent, which can execute `kubectl` commands within the cluster.
 
 Additional documentions can be found here -> [Documentions](https://translucentcomputing.github.io/kubert-assistant-lite/)
 
 ## Table of Contents
 
-- [Kubert Assistant Lite Project](#kubert-assistant-lite-project)
+- [Kubert AI Assistant Lite Project](#kubert-assistant-lite-project)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Features](#features)
@@ -30,7 +30,7 @@ Additional documentions can be found here -> [Documentions](https://translucentc
 
 Kubert Assistant is a DevOps productivity tool designed to simplify the management of workloads within a Kubernetes cluster. It provides a suite of capabilities that allow DevOps teams to automate, monitor, and manage their Kubernetes environments more efficiently.
 
-Kubert Assistant Lite provides an easy way to set up a local Kubernetes environment using Kind and deploys a minimal version of the Kubert Assistant platform. This project is ideal for testing and development purposes, offering the core functionalities of Kubert Assistant with a focus on the Kubectl Agent.
+Kubert AI Assistant Lite provides an easy way to set up a local Kubernetes environment using Kind and deploys a minimal version of the Kubert Assistant platform. This project is ideal for testing and development purposes, offering the core functionalities of Kubert Assistant with a focus on the Kubectl Agent.
 
 ## Features
 
@@ -71,7 +71,7 @@ Before you begin, ensure you have the following installed on your system:
 
 ### Deploy the Kubernetes Cluster and Application
 
-The deployment process is automated using a Makefile. To deploy the kind cluster and the Kubert Assistant Lite application, run:
+The deployment process is automated using a Makefile. To deploy the kind cluster and the Kubert AI Assistant Lite application, run:
 
 ```bash
 make deploy
@@ -81,7 +81,7 @@ This will execute the deploy.sh script which sets up the kind cluster and deploy
 
 ## Scripts
 
-- `deploy.sh`: Deploys the kind cluster and the Kubert Assistant Lite application.
+- `deploy.sh`: Deploys the kind cluster and the Kubert AI Assistant Lite application.
 - `utils.sh`: Contains utility functions used across the scripts.
 - `hello.sh`: Greetings and deployment description.
 - `validate-tools.sh`: Validates the installation of required tools.
@@ -106,7 +106,7 @@ Configuration files are located in the manifests/kubert-assistant/ directory. Yo
 - `integration-tests`: Runs integration tests.
 - `coverage`: Runs tests with kcov for coverage.
 - `clean-build`: Cleans up the coverage directory and Docker image.
-- `deploy`: Deploys the kind cluster and Kubert Assistant Lite application.
+- `deploy`: Deploys the kind cluster and Kubert AI Assistant Lite application.
 - `deploy-kubert-assistant`: Deploys Kubert Assistant components using Helm.
 - `cleanup-kubert-assistant`: Uninstall deployed Kubert Assistant components with Helm
 - `cleanup`: Cleans up the kind cluster and hosts file.

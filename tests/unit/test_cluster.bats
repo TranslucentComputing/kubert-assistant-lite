@@ -54,8 +54,8 @@ setup_mock_helm() {
     run deploy_application "test-repo" "https://example.com/helm-charts" "test-release" "test-chart" "test-assistant"
     assert_success
     run tail -n 4 "$TEMP_LOG_FILE"
-    assert_output --partial "[INFO]: Deploying Kubert Assistant Lite application using Helm..."
-    assert_output --partial "[INFO]: Kubert Assistant Lite application deployed successfully."
+    assert_output --partial "[INFO]: Deploying Kubert AI Assistant Lite application using Helm..."
+    assert_output --partial "[INFO]: Kubert AI Assistant Lite application deployed successfully."
 }
 
 # Mock for kubectl

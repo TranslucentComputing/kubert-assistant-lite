@@ -6,7 +6,7 @@ nav_nabled: true
 
 # Installation Guide
 
-This guide provides step-by-step instructions to install and set up Kubert Assistant Lite on your local machine.
+This guide provides step-by-step instructions to install and set up Kubert AI Assistant Lite on your local machine.
 
 ## Prerequisites
 
@@ -59,7 +59,7 @@ Ensure you have the following software installed:
 
     <iframe width="700" height="315" src="/kubert-assistant-lite/assets/video/open-browser.mov" frameborder="0" allowfullscreen></iframe>
 
-6. **Clean Up - Delete cluster and the Kubert Assistant Lite**
+6. **Clean Up - Delete cluster and the Kubert AI Assistant Lite**
 
    ```bash
    make cleanup

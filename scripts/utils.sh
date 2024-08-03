@@ -149,7 +149,7 @@ create_kind_cluster() {
 
 # -----------------------------------------------------------------------------
 # Function: deploy_application
-# Description: Deploys the Kubert Assistant Lite application using Helm.
+# Description: Deploys the Kubert AI Assistant Lite application using Helm.
 # Parameters:
 #   $1 - Helm repository name
 #   $2 - Helm repository URL
@@ -164,11 +164,11 @@ deploy_application() {
     local chart_name=$4
     local namespace=$5
 
-    log "INFO" "Deploying Kubert Assistant Lite application using Helm..."
+    log "INFO" "Deploying Kubert AI Assistant Lite application using Helm..."
     helm repo add "$repo_name" "$repo_url"
     helm repo update
     helm upgrade --install "$release_name" "$chart_name" --namespace "$namespace" --create-namespace
-    log "INFO" "Kubert Assistant Lite application deployed successfully."
+    log "INFO" "Kubert AI Assistant Lite application deployed successfully."
 }
 
 # -----------------------------------------------------------------------------

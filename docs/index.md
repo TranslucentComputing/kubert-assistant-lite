@@ -4,9 +4,9 @@ title: Home
 nav_nabled: true
 ---
 
-# Kubert Assistant Lite
+# Kubert AI Assistant Lite
 
-Kubert Assistant Lite is a lightweight open-source project that enables the deployment of a Kubernetes cluster using Kind and the deployment of Kubert Assistant with a single AI agent—the Kubectl Agent. This document provides a high-level overview of the project's architecture and components.
+Kubert AI Assistant Lite is a lightweight open-source project that enables the deployment of a Kubernetes cluster using [Kind](https://kind.sigs.k8s.io/){:target="_blank"} and the deployment of Kubert Assistant with a single AI agent, the Kubectl Agent. 
 
 <img src="/kubert-assistant-lite/assets/images/namespace-status.png" alt="Namespace Status" width="800" />
 

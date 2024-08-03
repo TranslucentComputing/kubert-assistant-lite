@@ -6,21 +6,21 @@ nav_nabled: true
 
 # Testing Guide
 
-Testing is an essential part of ensuring the reliability and correctness of the Kubert Assistant Lite project. This section outlines the testing strategy, tools used, and how to run the tests for the project.
+Testing is an essential part of ensuring the reliability and correctness of the Kubert AI Assistant Lite project. This section outlines the testing strategy, tools used, and how to run the tests for the project.
 
 ## Overview
 
-The Kubert Assistant Lite project uses a combination of unit tests and integration tests to ensure all components function as expected. The tests verify that the shell scripts, mock interactions, and overall application behavior align with the expected outcomes.
+The Kubert AI Assistant Lite project uses a combination of unit tests and integration tests to ensure all components function as expected. The tests verify that the shell scripts, mock interactions, and overall application behavior align with the expected outcomes.
 
 ## Testing Tools
 
-The following tools are used for testing in the Kubert Assistant Lite project:
+The following tools are used for testing in the Kubert AI Assistant Lite project:
 
 - **BATS (Bash Automated Testing System)**: A testing framework for Bash scripts that provides a simple way to verify the behavior of shell scripts.
 - **bats-support**: A library of helper functions for writing BATS tests, making them easier to read and maintain.
 - **bats-assert**: An assertion library for BATS, providing convenient functions for making assertions in tests.
 - **kcov**: A code coverage tool for Bash scripts, providing insights into which parts of the scripts are executed during testing.
-- **Helm Linter**: Checks if the the helm chart used for the Kubert Assistant Lite components has issues.
+- **Helm Linter**: Checks if the the helm chart used for the Kubert AI Assistant Lite components has issues.
 - **Helm Test**: After Helm chart deployment, Helm tests are executed to validate the deployment.
 
 ## Test Structure
@@ -149,7 +149,7 @@ open coverage/index.html
 
 ## Helm Testing
 
-Local Helm chart, `manifests/chart`, is used to deploy the different Kubert Assistant Lite component. Use a linter for a quick check:
+Local Helm chart, `manifests/chart`, is used to deploy the different Kubert AI Assistant Lite component. Use a linter for a quick check:
 
 ```bash
 make lint-chart

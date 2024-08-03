@@ -2,7 +2,7 @@
 
 # -----------------------------------------------------------------------------
 # Script Name: deploy.sh
-# Description: This script deploys the Kubert Assistant Lite application in a kind Kubernetes cluster.
+# Description: This script deploys the Kubert AI Assistant Lite application in a kind Kubernetes cluster.
 #
 # Usage:       ./deploy.sh
 #

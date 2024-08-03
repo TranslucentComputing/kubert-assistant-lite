@@ -98,7 +98,7 @@ clean-build: ## Remove coverage dir and kcov image
 
 # Validate and deploy scripts
 .PHONY: deploy
-deploy: ## Deploy kind cluster with Kubert Assistant Lite
+deploy: ## Deploy kind cluster with Kubert AI Assistant Lite
 	$(Q)LOG_TO_TERMINAL=true $(SCRIPTS_DIR)/deploy.sh
 
 # Deploy Kubert Assistant components using Helm
