@@ -13,7 +13,7 @@
 # kcov/kcov:latest
 #
 # Maintainer:
-# Translucent Computing Inc.
+# KubertAI
 # -----------------------------------------------------------------------------
 
 # Use the latest kcov image as the base image

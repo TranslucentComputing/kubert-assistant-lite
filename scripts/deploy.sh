@@ -6,7 +6,7 @@
 #
 # Usage:       ./deploy.sh
 #
-# Copyright © 2024 Translucent Computing Inc.
+# Copyright © 2024 KubertAI
 # -----------------------------------------------------------------------------
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
