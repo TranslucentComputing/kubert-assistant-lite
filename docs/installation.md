@@ -57,6 +57,8 @@ Ensure you have the following software installed:
 
 5. **Open browser to [http://kubert-assistant.lan/](http://kubert-assistant.lan/){:target="_blank"}**
 
+    <iframe width="700" height="315" src="/kubert-assistant-lite/assets/video/open-browser.mov" frameborder="0" allowfullscreen></iframe>
+
 6. **Clean Up - Delete cluster and the Kubert Assistant Lite**
 
    ```bash

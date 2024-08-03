@@ -1,0 +1,21 @@
+@media (min-width: 50rem) {
+    .side-bar {
+        width: 5.5rem;
+    }
+}
+@media (min-width: 66.5rem) {
+    .side-bar {
+        width: calc((100% - 66.5rem) / 2 + 6.5rem);
+        min-width: 6.5rem;
+    }
+}
+@media (min-width: 50rem) {
+    .main {
+        margin-left: 5.5rem;
+    }
+}
+@media (min-width: 66.5rem) {
+    .main {
+        margin-left: max(6.5rem, (100% - 66.5rem) / 2 + 6.5rem);
+    }
+}
