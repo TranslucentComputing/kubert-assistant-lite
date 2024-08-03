@@ -67,8 +67,6 @@ Ensure you have the following software installed:
 
 ## Terminal Deployment
 
-<script src="/kubert-assistant-lite/assets/js/asciinema-player.min.js"></script>
-
 ### Make Deploy
 
 #### Mac Version

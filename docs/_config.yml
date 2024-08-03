@@ -10,7 +10,7 @@ twitter_username:
 github_username:  patrykattc
 logo: "/assets/images/kubert-logo.png"
 favicon_ico: "/assets/images/favicon.ico"
-search_enabled: false
+search_enabled: true
 search:
   # Split pages into sections that can be searched individually
   # Supports 1 - 6, default: 2
@@ -51,6 +51,9 @@ gh_edit_view_mode: "tree"
 # Google Analytics Tracking (optional)
 ga_tracking: G-Q7QDCP3CE4
 ga_tracking_anonymize_ip: true
+
+mermaid:
+  version: "10.9.1"
 
 # Build settings
 theme: just-the-docs

@@ -34,8 +34,6 @@ The tests are organized into unit tests and integration tests:
 
 To run the tests, ensure you have the necessary dependencies installed and the project environment set up correctly.
 
-<script src="/kubert-assistant-lite/assets/js/asciinema-player.min.js"></script>
-
 ### Unit Tests
 
 Unit tests verify individual components of the project:
