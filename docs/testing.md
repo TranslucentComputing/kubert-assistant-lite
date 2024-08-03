@@ -48,7 +48,9 @@ This command runs all unit tests located in the tests/unit directory.
 
 <div id="make-tests"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests.cast', document.getElementById('make-tests'));
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests.cast', document.getElementById('make-tests'),{
+           poster: 'npt:1'
+        });
 </script>
 
 To run a single unit test file:
@@ -59,7 +61,9 @@ make tests TEST_FILE=tests/unit/test_wait_functions.bats
 
 <div id="make-tests-one-file"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-one-file.cast', document.getElementById('make-tests-one-file'));
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-one-file.cast', document.getElementById('make-tests-one-file'),{
+           poster: 'npt:1'
+        });
 </script>
 
 To run a single test in a unit test file:
@@ -70,7 +74,9 @@ make tests TEST_FILE=tests/unit/test_wait_functions.bats TEST_PATTERN="wait_for_
 
 <div id="make-tests-one-file-one-test"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-one-file-one-test.cast', document.getElementById('make-tests-one-file-one-test'));
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-one-file-one-test.cast', document.getElementById('make-tests-one-file-one-test'),{
+           poster: 'npt:1'
+        });
 </script>
 
 ### Integration Tests
@@ -83,7 +89,9 @@ make integration-tests
 
 <div id="make-tests-integration"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-integration.cast', document.getElementById('make-tests-integration'));
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-integration.cast', document.getElementById('make-tests-integration'),{
+           poster: 'npt:1'
+        });
 </script>
 
 This command runs all integration tests located in the tests/integration directory.
@@ -96,7 +104,9 @@ make integration-tests INTEGRATION_TEST_FILE=tests/integration/test_deploy_appli
 
 <div id="make-tests-integration-one-file"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-integration-one-file.cast', document.getElementById('make-tests-integration-one-file'));
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-integration-one-file.cast', document.getElementById('make-tests-integration-one-file'), {
+           poster: 'npt:1'
+        });
 </script>
 
 ## Test Coverage
@@ -111,7 +121,9 @@ To run tests with coverage and generate coverage reports using kcov, follow thes
 
     <div id="build-kcov-image"></div>
     <script>
-        AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/build-kcov-image.cast', document.getElementById('build-kcov-image'));
+        AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/build-kcov-image.cast', document.getElementById('build-kcov-image'),{
+           poster: 'npt:1'
+        });
     </script>
 
 2. Run the coverage target:
@@ -122,7 +134,55 @@ To run tests with coverage and generate coverage reports using kcov, follow thes
 
     <div id="make-coverage"></div>
     <script>
-        AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-coverage.cast', document.getElementById('make-coverage'));
+        AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-coverage.cast', document.getElementById('make-coverage'),{
+           poster: 'npt:1'
+        });
     </script>
 
-This command will execute the tests and generate coverage reports in the coverage directory using kcov.
+This command will execute the tests and generate coverage reports in the coverage directory using kcov. To view the coverage open the index.html file in the coverage directory in a browser.
+
+```bash
+open coverage/index.html
+```
+
+!["Coverage Report"](/kubert-assistant-lite/assets/images/coverage-report.png "Coverage Report")
+
+## Helm Testing
+
+Local Helm chart, `manifests/chart`, is used to deploy the different Kubert Assistant Lite component. Use a linter for a quick check:
+
+```bash
+make lint-chart
+```
+<div id="lint-chart"></div>
+<script>
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/lint-chart.cast', document.getElementById('lint-chart'),{
+        poster: 'npt:1'
+    });
+</script>
+
+Using Helm template, we can have a quick view at the Helm templates in the chart:
+
+```bash
+make template-chart
+```
+
+<div id="template-chart"></div>
+<script>
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/template-chart.cast', document.getElementById('template-chart'),{
+        poster: 'npt:1'
+    });
+</script>
+
+Once the system has been deployed, we can execute Helm tests with:
+
+```bash
+make helm-test
+```
+
+<div id="helm-tests"></div>
+<script>
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/helm-tests.cast', document.getElementById('helm-tests'),{
+        poster: 'npt:1'
+    });
+</script>

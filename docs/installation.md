@@ -75,7 +75,9 @@ Example running `make deploy` in iTerminal on a Mac.
 
 <div id="make-deploy-mac"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-deploy-mac.cast', document.getElementById('make-deploy-mac'));
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-deploy-mac.cast', document.getElementById('make-deploy-mac'),{
+           poster: 'npt:10'
+        });
 </script>
 
 ### Make Cleanup
@@ -86,5 +88,7 @@ Example running `make cleanup` in iTerminal on a Mac.
 
 <div id="make-cleanup-mac"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-cleanup-mac.cast', document.getElementById('make-cleanup-mac'));
+    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-cleanup-mac.cast', document.getElementById('make-cleanup-mac'),{
+           poster: 'npt:10'
+        });
 </script>
