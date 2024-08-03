@@ -1,6 +1,6 @@
 # Makefile for running Bats tests and generating coverage with kcov
 #
-# Copyright 2024 Translucent Computing Inc.
+# Copyright 2024 KubertAI
 
 # Use bash as the shell
 SHELL := /bin/bash
