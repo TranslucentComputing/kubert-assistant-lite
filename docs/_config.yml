@@ -56,3 +56,11 @@ ga_tracking_anonymize_ip: true
 theme: just-the-docs
 plugins:
   - jekyll-feed
+
+# Aux links for the upper right navigation
+aux_links:
+  "Kubert Assistant Lite GitHub":
+    - "https://github.com/TranslucentComputing/kubert-assistant-lite"
+
+# Makes Aux links open in a new tab. Default is false
+aux_links_new_tab: true
