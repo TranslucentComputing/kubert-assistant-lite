@@ -1,3 +1,5 @@
 {
-    theme: "light"
+    theme: "light",
+    securityLevel: "loose",
+    displayMode: "compact"
 }

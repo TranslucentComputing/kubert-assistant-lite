@@ -71,9 +71,83 @@ This architecture enables seamless interaction and automation within a localized
 
 ## Components
 
-1. **Scripts**: A collection of shell scripts that automate setup, deployment, and cleanup processes. These scripts include utility functions and validation checks to ensure a smooth workflow.
-2. **Helm Charts**: Used to manage the deployment of Kubernetes components, ensuring consistent and reproducible installations.
-3. **Makefile**: Provides a simplified interface for executing complex command sequences related to deployment and testing, making it easier for developers to interact with the project.
+```mermaid
+graph TD;
+    A[Project Root]
+    A --> C[Makefile]
+    A --> D[README.md]    
+    A --> F[kind-config.yaml]    
+    A --> H[Scripts]
+    A --> G[Manifests]
+    A --> I[Tests]
+
+    G --> J[calico]
+    G --> K[chart]
+    G --> L[kubert-assistant]
+    G --> M[nginx-ingress-controller]
+
+    I --> U[integration]
+    I --> X[unit]
+    I --> T[bats]
+    I --> W[test_helper]
+    W --> W1[bats-assert]
+    W --> W2[bats-support]
+
+    classDef root fill:#FF8C00,stroke:#333,stroke-width:2px,font-weight:bold,color:#fff;
+    classDef directory fill:#FFD700,stroke:#333,stroke-width:2px,font-weight:bold,color:#333;
+    classDef file fill:#98FB98,stroke:#333,stroke-width:1px,color:#333;
+
+    class A root;
+    class C,D,F file;
+    class G,H,I directory;
+    class J,K,L,M,T,U,X directory;
+    class W directory;
+    class W1,W2 directory;
+```
+
+The Kubert AI Assistant Lite project is organized into several key components, each contributing to the overall functionality and structure of the project. Below is a breakdown of these components, aligned with the project tree structure:
+
+- **Project Root**: The top-level directory containing all project files and directories. It serves as the entry point for the entire project.
+
+  - **Makefile**: A build automation tool file containing a set of directives used to compile and manage the project. It simplifies complex command sequences, making it easier for developers to execute tasks.
+
+  - **README.md**: A markdown file providing an overview of the project, including usage instructions, setup steps, and additional resources for users and contributors.
+
+  - **kind-config.yaml**: Configuration file used to set up the Kind Kubernetes cluster, defining the cluster's specifications and resources.
+
+- **Scripts**: A directory containing various shell scripts used to automate deployment, cleanup, validation, and other utility functions.
+
+  - **cleanup.sh**: Script for cleaning up resources and reverting changes made during deployment.
+
+  - **deploy.sh**: Script to deploy the Kubert Assistant Lite application onto the Kubernetes cluster.
+
+  - **utils.sh**: Contains reusable utility functions shared across multiple scripts to enhance efficiency and consistency.
+
+  - **validate-tools.sh**: Validates the presence and versions of required tools, ensuring that all prerequisites are met before proceeding with operations.
+
+- **Manifests**: A directory containing YAML files and Helm charts for Kubernetes deployments and configurations.
+
+  - **calico**: Includes deployment configurations for Calico, a networking and network policy engine for Kubernetes.
+
+  - **chart**: Contains Helm chart files, including templates and values used to deploy and manage Kubernetes components.
+
+  - **kubert-assistant**: Holds the Helm chart values YAML files for the Kubert Assistant component, specifying values and settings for its operation.
+
+  - **nginx-ingress-controller**: Contains deployment configurations for the NGINX Ingress Controller, managing external access to services within the Kubernetes cluster.
+
+- **Tests**: A directory with test scripts and support files for unit and integration testing, ensuring the project's reliability and performance.
+
+  - **integration**: Contains integration test scripts that verify the functionality of different components working together.
+
+  - **unit**: Includes unit test scripts focusing on individual components and their isolated behavior.
+
+  - **bats**: Holds test files using BATS (Bash Automated Testing System) for bash script testing.
+
+  - **test_helper**: Provides helper scripts and libraries supporting the testing process, including assertions and support functions.
+  
+    - **bats-assert**: A library providing assertions for BATS test scripts.
+
+    - **bats-support**: A library offering support functions for BATS, aiding in test setup and execution.
 
 ## Goals
 
