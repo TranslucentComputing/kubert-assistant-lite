@@ -4,6 +4,8 @@ Kubert AI Assistant Lite is an open-source project designed to deploy a lightwei
 
 Additional documentions can be found here -> [Documentions](https://translucentcomputing.github.io/kubert-assistant-lite/)
 
+Setup video -> [Video](https://translucentcomputing.github.io/kubert-assistant-lite/usage.html#kubert-ai-assistant-setup)
+
 ## Table of Contents
 
 - [Kubert AI Assistant Lite Project](#kubert-ai-assistant-lite-project)
