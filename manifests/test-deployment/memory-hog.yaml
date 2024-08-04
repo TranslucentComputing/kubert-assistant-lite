@@ -1,0 +1,39 @@
+# This YAML manifest defines a Kubernetes Deployment that simulates a resource misconfiguration scenario.
+# The deployment uses the stress-ng tool to intentionally exceed its memory limits, demonstrating how Kubernetes handles Out of Memory (OOM) conditions.
+# This example is useful for educational purposes, illustrating the importance of proper resource configuration in a Kubernetes environment.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memory-hog
+  labels:
+    app: memory-hog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memory-hog
+  template:
+    metadata:
+      labels:
+        app: memory-hog
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: memory-hog
+        # Using a lightweight image that includes the stress-ng tool to simulate memory usage
+        image: ghcr.io/colinianking/stress-ng
+        resources:
+          # Requests are the minimum resources required for scheduling the pod
+          requests:
+            memory: "32Mi"  # Requesting a small amount of memory
+            cpu: "100m"     # Requesting a small amount of CPU
+          # Limits are the maximum resources the pod can consume
+          limits:
+            memory: "32Mi"  # Limiting memory to 32Mi, likely to cause an OOM error when exceeded
+            cpu: "100m"     # Limiting CPU to 100m
+        command: 
+          # Using stress-ng to allocate 64Mi of memory, intentionally exceeding the limit
+          - "sh"
+          - "-c"
+          - "echo 'Starting memory hog'; stress-ng --vm 1 --vm-bytes 64M --vm-hang 0 --timeout 60s; tail -f /dev/null"

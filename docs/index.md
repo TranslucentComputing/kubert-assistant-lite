@@ -99,6 +99,7 @@ graph TD;
     G --> K[chart]
     G --> L[kubert-assistant]
     G --> M[nginx-ingress-controller]
+    G --> N[test-deployment]
 
     I --> U[integration]
     I --> X[unit]
@@ -114,7 +115,7 @@ graph TD;
     class A root;
     class C,D,F file;
     class G,H,I directory;
-    class J,K,L,M,T,U,X directory;
+    class J,K,L,M,T,U,X,N directory;
     class W directory;
     class W1,W2 directory;
 ```
@@ -140,6 +141,7 @@ The Kubert AI Assistant Lite project is organized into several key components, e
   - **kubert-assistant**: Holds the Helm chart values YAML files for the Kubert Assistant component, specifying values and settings for its operation.
 
   - **nginx-ingress-controller**: Contains deployment configurations for the NGINX Ingress Controller, managing external access to services within the Kubernetes cluster.
+  - **test-deployment**: Manifest files used for testing and demos.
 
 - **Tests**: A directory with test scripts and support files for unit and integration testing, ensuring the project's reliability and performance.
 

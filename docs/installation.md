@@ -81,10 +81,12 @@ Follow these steps to install and set up Kubert AI Assistant Lite:
 
 5. **Open browser to [http://kubert-assistant.lan/](http://kubert-assistant.lan/){:target="_blank"}**
 
-    <video width="700" height="315" controls>
-        <source src="/kubert-assistant-lite/assets/video/open-browser.mov" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <div class="video-container">
+        <video width="700" height="315" controls>
+            <source src="/kubert-assistant-lite/assets/video/open-browser.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
 ## Cleaning Up
 

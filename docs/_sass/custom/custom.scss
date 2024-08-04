@@ -1,21 +1,15 @@
-// @media (min-width: 50rem) {
-//     .side-bar {
-//         width: 5.5rem;
-//     }
-// }
-// @media (min-width: 66.5rem) {
-//     .side-bar {
-//         width: calc((100% - 66.5rem) / 2 + 6.5rem);
-//         min-width: 6.5rem;
-//     }
-// }
-// @media (min-width: 50rem) {
-//     .main {
-//         margin-left: 5.5rem;
-//     }
-// }
-// @media (min-width: 66.5rem) {
-//     .main {
-//         margin-left: max(6.5rem, (100% - 66.5rem) / 2 + 6.5rem);
-//     }
-// }
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Aspect ratio of 16:9 (9/16 = 0.5625) */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
