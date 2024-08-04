@@ -7,7 +7,7 @@ automountServiceAccountToken: true
 image:
   pullPolicy: IfNotPresent
   repository: northamerica-northeast2-docker.pkg.dev/tcinc-dev/kubert-images/command-runner
-  tag: 5842fe7
+  tag: 12b08ac
 
 ## Container Http port
 containerPortHttp: 3000
@@ -76,9 +76,7 @@ rbac:
 
 # Network policy config
 networkPolicy:
-  enabled: true
-  allowExternal: true
-  extraEgress: []
+  enabled: false
 
 # Test config
 test:
