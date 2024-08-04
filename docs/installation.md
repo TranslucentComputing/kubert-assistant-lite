@@ -51,7 +51,7 @@ Follow these steps to install and set up Kubert AI Assistant Lite:
    Open a terminal and run:
 
    ```bash
-   git clone https://github.com/yourusername/kubert-assistant-lite.git
+   git clone https://github.com/TranslucentComputing/kubert-assistant-lite.git
    cd kubert-assistant-lite
    ```
 
@@ -80,8 +80,11 @@ Follow these steps to install and set up Kubert AI Assistant Lite:
     This command will set up the Kind cluster and deploy the application using Helm. During the deployment `OPENAI_API_KEY` will be requested as well as the system password to update `/etc/hosts` file with the local domains. For Windows users the user admin password is required to update `c:\Windows\System32\Drivers\etc\hosts`.
 
 5. **Open browser to [http://kubert-assistant.lan/](http://kubert-assistant.lan/){:target="_blank"}**
-
-    <iframe width="700" height="315" src="/kubert-assistant-lite/assets/video/open-browser.mov" frameborder="0" allowfullscreen></iframe>
+    
+    <video width="700" height="315" controls>
+        <source src="/kubert-assistant-lite/assets/video/open-browser.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
 ## Cleaning Up
 

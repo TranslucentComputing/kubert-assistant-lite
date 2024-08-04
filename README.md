@@ -6,7 +6,7 @@ Additional documentions can be found here -> [Documentions](https://translucentc
 
 ## Table of Contents
 
-- [Kubert AI Assistant Lite Project](#kubert-assistant-lite-project)
+- [Kubert AI Assistant Lite Project](#kubert-ai-assistant-lite-project)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Features](#features)
@@ -57,7 +57,7 @@ Before you begin, ensure you have the following installed on your system:
 1. Clone the Repository
 
     ```bash
-    git clone https://github.com/yourusername/kubert-assistant-lite.git
+    git clone https://github.com/TranslucentComputing/kubert-assistant-lite.git
     cd kubert-assistant-lite
     ```
 
