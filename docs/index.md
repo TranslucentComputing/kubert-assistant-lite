@@ -17,6 +17,20 @@ Kubert AI Assistant Lite is a lightweight open-source project that enables the d
 - **Kubectl AI Agent**: An AI-powered agent capable of executing `kubectl` commands based on user prompts. This agent enhances productivity by automating routine Kubernetes management tasks.
 - **Automation and Insights**: Gain insights into your Kubernetes environment through automated command execution and analysis provided by the AI agent.
 
+## Benefits
+
+- **Simplified Kubernetes Setup**: Kubert AI Assistant Lite provides an easy-to-use platform for setting up local Kubernetes clusters, reducing the barrier to entry for developers new to Kubernetes.
+- **Enhanced Productivity**: By automating routine Kubernetes operations through intelligent command execution, developers can focus on higher-level tasks and accelerate their workflows.
+- **Testbed for AI-Driven Automation**: Kubert AI Assistant Lite offers a sandbox environment where developers can explore the capabilities of the Kubectl AI agent and experiment with AI-driven Kubernetes management techniques.
+
+## Comparison with Other Tools
+
+Kubert AI Assistant Lite stands out from other Kubernetes management tools in the following ways:
+
+- **AI-Driven Interaction**: Unlike traditional tools that rely on manual commands, Kubert AI Assistant Lite leverages AI to interpret user prompts and execute appropriate actions, making cluster management more intuitive and accessible.
+- **Lightweight and Local**: With its focus on local development using Kind, Kubert AI Assistant Lite provides a lightweight and self-contained environment for experimentation and testing, without the need for complex setups or external dependencies.
+- **Educational Resource**: Kubert AI Assistant Lite serves as an educational tool, allowing developers to learn and explore Kubernetes concepts and best practices through hands-on interaction with the AI agent.
+
 ## Project Architecture
 
 ```mermaid
@@ -117,14 +131,6 @@ The Kubert AI Assistant Lite project is organized into several key components, e
 
 - **Scripts**: A directory containing various shell scripts used to automate deployment, cleanup, validation, and other utility functions.
 
-  - **cleanup.sh**: Script for cleaning up resources and reverting changes made during deployment.
-
-  - **deploy.sh**: Script to deploy the Kubert Assistant Lite application onto the Kubernetes cluster.
-
-  - **utils.sh**: Contains reusable utility functions shared across multiple scripts to enhance efficiency and consistency.
-
-  - **validate-tools.sh**: Validates the presence and versions of required tools, ensuring that all prerequisites are met before proceeding with operations.
-
 - **Manifests**: A directory containing YAML files and Helm charts for Kubernetes deployments and configurations.
 
   - **calico**: Includes deployment configurations for Calico, a networking and network policy engine for Kubernetes.
@@ -149,11 +155,14 @@ The Kubert AI Assistant Lite project is organized into several key components, e
 
     - **bats-support**: A library offering support functions for BATS, aiding in test setup and execution.
 
-## Goals
+## Roadmap and Future Plans
 
-- **Simplify Kubernetes Setup**: Provide an easy-to-use platform for setting up local Kubernetes clusters, reducing the barrier to entry for developers new to Kubernetes.
-- **Testbed for AI-Driven Automation**: Offer a sandbox environment where developers can explore the capabilities of the Kubectl AI agent and experiment with AI-driven Kubernetes management.
-- **Enhance Developer Productivity**: Allow developers to focus on higher-level tasks by automating routine Kubernetes operations through intelligent command execution.
+We have exciting plans for the future of Kubert AI Assistant Lite. Some of the key areas we are focusing on include:
+
+- **Enhanced AI Capabilities**: We are continuously working on improving the AI agent's understanding of user prompts and its ability to execute complex Kubernetes operations. This includes expanding the range of supported commands and providing more intelligent suggestions and insights.
+- **Additional AI Agents**: We plan to introduce new AI agents specializing in different aspects of Kubernetes management, such as monitoring, security, and performance optimization. These agents will work alongside the Kubectl AI Agent to provide a comprehensive and intelligent cluster management experience.
+- **Integration with Popular Tools**: We aim to integrate Kubert AI Assistant Lite with popular Kubernetes tools and platforms, such as Prometheus, Grafana, and LinkerD, to provide a seamless and unified experience for users. Full Kubert AI Assistant comes with Kubert Toolkit. The comprehensive toolkit is not best suited for local development. We are looking at ways to allow users to partially install it.
+- **Community Contributions**: We encourage and welcome contributions from the open-source community to help shape the future of Kubert AI Assistant Lite. We plan to establish clear guidelines and processes for contributing, making it easier for developers to get involved and contribute to the project.
 
 ## Getting Started
 

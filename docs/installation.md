@@ -10,7 +10,7 @@ This guide provides step-by-step instructions to install and set up Kubert AI As
 
 ## Prerequisites
 
-Ensure you have the following software installed:
+Before proceeding with the installation, ensure you have the following software installed:
 
 - [Docker](https://docs.docker.com/get-docker/){:target="_blank"}
 - [Kind](https://kind.sigs.k8s.io/){:target="_blank"}
@@ -20,7 +20,31 @@ Ensure you have the following software installed:
 - [Make](https://www.gnu.org/software/make/){:target="_blank"}
 - [OpenAI API Key](https://platform.openai.com/docs/api-reference/authentication){:target="_blank"} or [Anthropic API Key](https://console.anthropic.com/docs/authentication){:target="_blank"} (for AI capabilities)
 
+Ensure that these tools are properly installed and accessible from your command line.
+
+## Setting up API Keys
+
+To enable the AI capabilities of Kubert AI Assistant Lite, you need to set up an API key from either OpenAI or Anthropic. Follow these steps to obtain and configure your API key:
+
+### OpenAI API Key
+
+1. Sign up for an account at [OpenAI](https://platform.openai.com/signup/){:target="_blank"} if you don't have one already.
+2. Navigate to the [API Keys](https://platform.openai.com/account/api-keys){:target="_blank"} section in your OpenAI account dashboard.
+3. Click on the "Create new secret key" button to generate a new API key.
+4. Copy the generated API key and store it securely.
+
+### Anthropic API Key
+
+1. Sign up for an account at [Anthropic](https://console.anthropic.com/login){:target="_blank"} if you don't have one already.
+2. Navigate to the [API Keys](https://console.anthropic.com/settings/keys){:target="_blank"} section in your Anthropic account dashboard.
+3. Click on the "Create Key" button to generate a new API key.
+4. Copy the generated API key and store it securely.
+
+Once you have obtained your API key, you will need to provide it during the installation process.
+
 ## Installation Steps
+
+Follow these steps to install and set up Kubert AI Assistant Lite:
 
 1. **Clone the repository**
 
@@ -59,11 +83,15 @@ Ensure you have the following software installed:
 
     <iframe width="700" height="315" src="/kubert-assistant-lite/assets/video/open-browser.mov" frameborder="0" allowfullscreen></iframe>
 
-6. **Clean Up - Delete cluster and the Kubert AI Assistant Lite**
+## Cleaning Up
 
-   ```bash
-   make cleanup
-   ```
+To clean up and delete the Kind cluster and the Kubert AI Assistant Lite components, run the following command:
+
+```bash
+make cleanup
+```
+
+This command will remove the Kind cluster and all the associated resources, bringing your environment back to its initial state.
 
 ## Terminal Deployment
 
