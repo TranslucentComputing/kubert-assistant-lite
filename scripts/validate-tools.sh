@@ -8,7 +8,7 @@
 #
 # Usage:       ./validate-tools.sh
 #
-# Copyright © 2024 KubertAI
+# Copyright © 2024 Kubert
 # -----------------------------------------------------------------------------
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors

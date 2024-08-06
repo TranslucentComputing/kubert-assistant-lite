@@ -1,6 +1,6 @@
 # Kubert AI Assistant Lite Project
 
-Kubert AI Assistant Lite is an open-source project designed to deploy a lightweight version of Kubert Assistant in a local Kind (Kubernetes in Docker) cluster. This version includes a single AI agent, the Kubectl Agent, which can execute `kubectl` commands within the cluster.
+Kubert AI Assistant Lite is an open-source project designed to deploy a lightweight version of Kubert Assistant in a local kind (Kubernetes in Docker) cluster. This version includes a single AI agent, the Kubectl Agent, which can execute `kubectl` commands within the cluster.
 
 Additional documentions can be found here -> [Documentions](https://translucentcomputing.github.io/kubert-assistant-lite/)
 
@@ -32,11 +32,11 @@ Setup video -> [Video](https://translucentcomputing.github.io/kubert-assistant-l
 
 Kubert Assistant is a DevOps productivity tool designed to simplify the management of workloads within a Kubernetes cluster. It provides a suite of capabilities that allow DevOps teams to automate, monitor, and manage their Kubernetes environments more efficiently.
 
-Kubert AI Assistant Lite provides an easy way to set up a local Kubernetes environment using Kind and deploys a minimal version of the Kubert Assistant platform. This project is ideal for testing and development purposes, offering the core functionalities of Kubert Assistant with a focus on the Kubectl Agent.
+Kubert AI Assistant Lite provides an easy way to set up a local Kubernetes environment using kind and deploys a minimal version of the Kubert Assistant platform. This project is ideal for testing and development purposes, offering the core functionalities of Kubert Assistant with a focus on the Kubectl Agent.
 
 ## Features
 
-- Deploys a local Kind cluster.
+- Deploys a local kind cluster.
 - Includes a Kubectl Agent for executing `kubectl` commands.
 - Utilizes Helm charts for easy deployment and management.
 - Lightweight and easy to set up for local testing and development.
@@ -46,7 +46,7 @@ Kubert AI Assistant Lite provides an easy way to set up a local Kubernetes envir
 Before you begin, ensure you have the following installed on your system:
 
 - [Docker](https://docs.docker.com/get-docker/)
-- [Kind](https://kind.sigs.k8s.io/)
+- [kind](https://kind.sigs.k8s.io/)
 - [Helm](https://helm.sh/docs/intro/install/)
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [jq](https://stedolan.github.io/jq/)
@@ -88,7 +88,7 @@ This will execute the deploy.sh script which sets up the kind cluster and deploy
 - `hello.sh`: Greetings and deployment description.
 - `validate-tools.sh`: Validates the installation of required tools.
 - `variables.sh`: Contains variables used in the deployment script.
-- `cleanup.sh`: Cleans up resources after deployment by deleting the Kind cluster and updating the hosts file.
+- `cleanup.sh`: Cleans up resources after deployment by deleting the kind cluster and updating the hosts file.
 
 ## Helm Configuration
 

@@ -6,7 +6,7 @@
 #
 # Usage:       ./hello.sh
 #
-# Copyright © 2024 KubertAI
+# Copyright © 2024 Kubert
 # -----------------------------------------------------------------------------
 
 # Source the utils.sh script to use the log function

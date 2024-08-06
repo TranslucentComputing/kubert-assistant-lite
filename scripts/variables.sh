@@ -4,7 +4,7 @@
 # Script Name: variables.sh
 # Description: This file contains all the variables used in the deployment script.
 #
-# Copyright © 2024 KubertAI
+# Copyright © 2024 Kubert
 # -----------------------------------------------------------------------------
 
 #shellcheck disable=SC2034

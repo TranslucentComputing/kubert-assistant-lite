@@ -6,7 +6,7 @@ nav_nabled: true
 
 # Kubert AI Assistant Lite
 
-Kubert AI Assistant Lite is a lightweight open-source project that enables the deployment of a Kubernetes cluster using [Kind](https://kind.sigs.k8s.io/){:target="_blank"} and the deployment of Kubert AI Assistant with a single AI agent, the Kubectl Agent. 
+Kubert AI Assistant Lite is a lightweight open-source project that enables the deployment of a Kubernetes cluster using [kind](https://kind.sigs.k8s.io/){:target="_blank"} and the deployment of Kubert AI Assistant with a single AI agent, the Kubectl Agent. 
 
 [Visit GitHub](https://github.com/TranslucentComputing/kubert-assistant-lite){: .btn .btn-blue target="_blank" rel="noopener" }
 [Join Our Discord](https://discord.gg/d22b58ejgV){: .btn .btn-green target="_blank" rel="noopener" }
@@ -16,7 +16,7 @@ Kubert AI Assistant Lite is a lightweight open-source project that enables the d
 
 ## Key Features
 
-- **Kind Cluster Deployment**: Leverage Kubernetes in Docker (Kind) to create a local Kubernetes cluster for testing and development, enabling rapid prototyping and experimentation.
+- **kind Cluster Deployment**: Leverage Kubernetes in Docker (kind) to create a local Kubernetes cluster for testing and development, enabling rapid prototyping and experimentation.
 - **Kubectl AI Agent**: An AI-powered agent capable of executing `kubectl` commands based on user prompts. This agent enhances productivity by automating routine Kubernetes management tasks.
 - **Automation and Insights**: Gain insights into your Kubernetes environment through automated command execution and analysis provided by the AI agent.
 
@@ -31,7 +31,7 @@ Kubert AI Assistant Lite is a lightweight open-source project that enables the d
 Kubert AI Assistant Lite stands out from other Kubernetes management tools in the following ways:
 
 - **AI-Driven Interaction**: Unlike traditional tools that rely on manual commands, Kubert AI Assistant Lite leverages AI to interpret user prompts and execute appropriate actions, making cluster management more intuitive and accessible.
-- **Lightweight and Local**: With its focus on local development using Kind, Kubert AI Assistant Lite provides a lightweight and self-contained environment for experimentation and testing, without the need for complex setups or external dependencies.
+- **Lightweight and Local**: With its focus on local development using kind, Kubert AI Assistant Lite provides a lightweight and self-contained environment for experimentation and testing, without the need for complex setups or external dependencies.
 - **Educational Resource**: Kubert AI Assistant Lite serves as an educational tool, allowing developers to learn and explore Kubernetes concepts and best practices through hands-on interaction with the AI agent.
 
 ## Project Architecture
@@ -43,7 +43,7 @@ graph TD;
     end
 
     subgraph Kubernetes Cluster                
-        B --> C[Kind Cluster]
+        B --> C[kind Cluster]
         C --> D[Kubert Assistant]
         D --> E[Kubectl AI Agent]
     end
@@ -72,15 +72,15 @@ graph TD;
     linkStyle 5 stroke:#A1BA90,stroke-width:1px;
 ```
 
-The architecture of Kubert AI Assistant Lite consists of several key components that work together to create a robust and flexible local Kubernetes environment using Kind. Here’s a detailed breakdown:
+The architecture of Kubert AI Assistant Lite consists of several key components that work together to create a robust and flexible local Kubernetes environment using kind. Here’s a detailed breakdown:
 
-- **Local Environment**: The project is initiated on the developer's machine, which runs Docker to host the Kubernetes cluster using Kind. This setup ensures a lightweight and easily configurable development environment.
+- **Local Environment**: The project is initiated on the developer's machine, which runs Docker to host the Kubernetes cluster using kind. This setup ensures a lightweight and easily configurable development environment.
 
-- **Kind Cluster**: Kind (Kubernetes in Docker) is used to create a local Kubernetes environment within Docker containers. It provides a lightweight and configurable cluster setup, ideal for testing and development purposes.
+- **kind Cluster**: kind (Kubernetes in Docker) is used to create a local Kubernetes environment within Docker containers. It provides a lightweight and configurable cluster setup, ideal for testing and development purposes.
 
-- **Kubert AI Assistant**: Deployed within the Kind cluster, the Kubert Assistant serves as a management layer that interprets user prompts and coordinates actions within the cluster. It acts as a bridge between user commands and Kubernetes operations.
+- **Kubert AI Assistant**: Deployed within the kind cluster, the Kubert Assistant serves as a management layer that interprets user prompts and coordinates actions within the cluster. It acts as a bridge between user commands and Kubernetes operations.
 
-- **Kubectl AI Agent**: This AI-powered agent operates within the Kind cluster, executing `kubectl` commands based on natural language prompts. It offers automated management and diagnostic capabilities, simplifying Kubernetes operations and enhancing productivity.
+- **Kubectl AI Agent**: This AI-powered agent operates within the kind cluster, executing `kubectl` commands based on natural language prompts. It offers automated management and diagnostic capabilities, simplifying Kubernetes operations and enhancing productivity.
 
 - **User Interaction**: Users send commands through a prompt interface, which are interpreted by the Kubectl AI Agent to perform the necessary operations within the Kubernetes cluster.
 
@@ -131,7 +131,7 @@ The Kubert AI Assistant Lite project is organized into several key components, e
 
   - **README.md**: A markdown file providing an overview of the project, including usage instructions, setup steps, and additional resources for users and contributors.
 
-  - **kind-config.yaml**: Configuration file used to set up the Kind Kubernetes cluster, defining the cluster's specifications and resources.
+  - **kind-config.yaml**: Configuration file used to set up the kind Kubernetes cluster, defining the cluster's specifications and resources.
 
 - **Scripts**: A directory containing various shell scripts used to automate deployment, cleanup, validation, and other utility functions.
 
@@ -171,7 +171,7 @@ We have exciting plans for the future of Kubert AI Assistant Lite. Some of the k
 
 ## Getting Started
 
-To get started with Kubert Assistant Lite, follow the installation guide and deploy your local Kubernetes cluster using Kind. Explore the capabilities of the Kubectl AI agent and discover how it can streamline your Kubernetes workflows.
+To get started with Kubert Assistant Lite, follow the installation guide and deploy your local Kubernetes cluster using kind. Explore the capabilities of the Kubectl AI agent and discover how it can streamline your Kubernetes workflows.
 
 For detailed installation instructions, please refer to the [Installation Guide](installation.html).
 

@@ -7,7 +7,7 @@
 #
 # Usage:       ./cleanup.sh
 #
-# Copyright © 2024 KubertAI
+# Copyright © 2024 Kubert
 # -----------------------------------------------------------------------------
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -34,7 +34,7 @@ if kind get clusters | grep -q "$KIND_CLUSTER_NAME"; then
     log "INFO" "Deleting kind cluster $KIND_CLUSTER_NAME..."
     kind delete cluster --name "$KIND_CLUSTER_NAME"
 else
-    log "INFO" "Kind cluster $KIND_CLUSTER_NAME does not exist. Skipping deletion."
+    log "INFO" "kind cluster $KIND_CLUSTER_NAME does not exist. Skipping deletion."
 fi
 
 # Clean up hosts file entries
