@@ -34,4 +34,5 @@ HOSTS_ENTRIES=(
     "kubert-agent.lan"
     "kubert-plugin.lan"
     "kubert-plugin-gateway.lan"
+    "kubert-ollama.lan"
 )

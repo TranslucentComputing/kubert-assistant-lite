@@ -28,6 +28,11 @@ setup() {
     echo -e "#!/usr/bin/env bash\nget_host_ip() {\n  echo '192.168.0.1'\n}" > "$MOCK_DIR/get_host_ip"
     chmod +x "$MOCK_DIR/get_host_ip"
     source "$MOCK_DIR/get_host_ip"
+
+    # Mock macOS specific commands to prevent actual execution
+    echo -e "#!/usr/bin/env bash\necho 'Flushed DNS cache'" > "$MOCK_DIR/dscacheutil"
+    echo -e "#!/usr/bin/env bash\necho 'No matching processes belonging to you were found'" > "$MOCK_DIR/killall"
+    chmod +x "$MOCK_DIR/dscacheutil" "$MOCK_DIR/killall"
 }
 
 teardown() {
@@ -43,7 +48,7 @@ teardown() {
     run cat "$MOCK_HOSTS_FILE"
     assert_output --partial "192.168.0.1 kubert-assistant.lan"
     assert_output --partial "192.168.0.1 kubert-agent.lan"
-    run tail -n 2 "$TEMP_LOG_FILE"
+    run tail -n 4 "$TEMP_LOG_FILE"
     assert_output --partial "[INFO]: Added 192.168.0.1 kubert-assistant.lan to $MOCK_HOSTS_FILE"
     assert_output --partial "[INFO]: Added 192.168.0.1 kubert-agent.lan to $MOCK_HOSTS_FILE"
 }
@@ -57,7 +62,7 @@ teardown() {
     run cat "$MOCK_HOSTS_FILE"
     assert_output --partial "192.168.0.1 kubert-assistant.lan"
     assert_output --partial "192.168.0.1 kubert-agent.lan"
-    run tail -n 2 "$TEMP_LOG_FILE"
+    run tail -n 4 "$TEMP_LOG_FILE"
     assert_output --partial "[INFO]: 192.168.0.1 kubert-assistant.lan already exists in $MOCK_HOSTS_FILE"
     assert_output --partial "[INFO]: Added 192.168.0.1 kubert-agent.lan to $MOCK_HOSTS_FILE"
 }
@@ -101,7 +106,7 @@ teardown() {
     run cat "$MOCK_HOSTS_FILE"
     refute_output --partial "192.168.0.1 kubert-assistant.lan"
     refute_output --partial "192.168.0.1 kubert-agent.lan"
-    run tail -n 2 "$TEMP_LOG_FILE"
+    run tail -n 4 "$TEMP_LOG_FILE"
     assert_output --partial "[INFO]: Removed 192.168.0.1 kubert-assistant.lan from $MOCK_HOSTS_FILE"
     assert_output --partial "[INFO]: Removed 192.168.0.1 kubert-agent.lan from $MOCK_HOSTS_FILE"
 }

@@ -219,42 +219,59 @@ update_hosts_file() {
             fi
         done
 
-        # Detect if running on WSL or PowerShell and update the Windows hosts file
-        if grep -qi microsoft /proc/version || command -v powershell.exe &> /dev/null; then
-            local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
-            temp_file=$(mktemp)
-            sudo cp "${windows_hosts_file}" "${temp_file}"
-            
-            for domain in "${hosts_entries[@]}"; do
-                entry="${host_ip} ${domain}"
-                hostname=$(echo "$entry" | awk '{print $2}')
-                if ! grep -q "$entry" "${temp_file}"; then
-                    sudo sed -i "\$a${entry}" "${temp_file}"
-                    log "INFO" "Added $entry to $windows_hosts_file"
-                else
-                    log "INFO" "$entry already exists in $windows_hosts_file"
+        # Detect the OS and apply relevant commands
+        case "$(uname)" in
+            "Darwin")
+                # macOS specific actions
+                sudo dscacheutil -flushcache
+                sudo killall -HUP mDNSResponder
+                log "INFO" "Flushed DNS cache on macOS"
+                ;;
+            "Linux")
+                # Linux specific actions
+                log "INFO" "Assuming DNS cache flush is not necessary on Linux or managed by systemd-resolved"
+                ;;
+            "MINGW"*|"CYGWIN"*|"MSYS"*)
+                # Windows specific actions via WSL or Git Bash
+                local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
+                temp_file=$(mktemp)
+                sudo cp "${windows_hosts_file}" "${temp_file}"
+                
+                for domain in "${hosts_entries[@]}"; do
+                    entry="${host_ip} ${domain}"
+                    hostname=$(echo "$entry" | awk '{print $2}')
+                    if ! grep -q "$entry" "${temp_file}"; then
+                        sudo sed -i "\$a${entry}" "${temp_file}"
+                        log "INFO" "Added $entry to $windows_hosts_file"
+                    else
+                        log "INFO" "$entry already exists in $windows_hosts_file"
+                    fi
+                done
+
+                # Convert WSL path to Windows path
+                temp_windows_path=$(wslpath -w "${temp_file}")
+
+                # Use PowerShell to move the file with elevated permissions
+                powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+
+                if [ $? -ne 0 ]; then
+                    log "ERROR" "Failed to update hosts file. Please run the script as an administrator."
+                    exit 1
                 fi
-            done
 
-            # Convert WSL path to Windows path
-            temp_windows_path=$(wslpath -w "${temp_file}")
+                # Flush DNS cache on Windows with elevated permissions
+                powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
 
-            # Use PowerShell to move the file with elevated permissions
-            powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
-
-            if [ $? -ne 0 ]; then
-                echo "Failed to update hosts file. Please run the script as an administrator."
+                if [ $? -ne 0 ]; then
+                    log "ERROR" "Failed to flush DNS cache. Please run the script as an administrator."
+                    exit 1
+                fi
+                ;;
+            *)
+                log "ERROR" "Unsupported operating system."
                 exit 1
-            fi
-
-            # Flush DNS cache on Windows with elevated permissions
-            powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
-
-            if [ $? -ne 0 ]; then
-                echo "Failed to flush DNS cache. Please run the script as an administrator."
-                exit 1
-            fi
-        fi
+                ;;
+        esac        
     else
         log "INFO" "Aborted updating the hosts file."
     fi
@@ -297,39 +314,55 @@ clean_up_hosts_file() {
     # Move the temp file back to the hosts file using sudo
     sudo mv "${temp_file}" "${HOSTS_FILE_PATH}"
 
-    # Detect if running on WSL or PowerShell and update the Windows hosts file
-    if grep -qi microsoft /proc/version || command -v powershell.exe &> /dev/null; then
-        local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
-        temp_file=$(mktemp)
-        sudo cp "${windows_hosts_file}" "${temp_file}"
-        for domain in "${hosts_entries[@]}"; do
-            entry="${host_ip} ${domain}"
-            hostname=$(echo "$entry" | awk '{print $2}')
-            sudo sed -i.bak "/[[:space:]]${hostname}[[:space:]]*$/d" "${temp_file}"
-            log "INFO" "Removed $entry from $windows_hosts_file"
-        done
+    # Detect the OS and apply relevant commands
+    case "$(uname)" in
+        "Darwin")
+            # macOS specific actions
+            sudo dscacheutil -flushcache
+            sudo killall -HUP mDNSResponder
+            log "INFO" "Flushed DNS cache on macOS"
+            ;;
+        "Linux")
+            # Linux specific actions
+            log "INFO" "Assuming DNS cache flush is not necessary on Linux or managed by systemd-resolved"
+            ;;
+        "MINGW"*|"CYGWIN"*|"MSYS"*)
+            # Windows specific actions via WSL or Git Bash    
+            local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
+            temp_file=$(mktemp)
+            sudo cp "${windows_hosts_file}" "${temp_file}"
+            for domain in "${hosts_entries[@]}"; do
+                entry="${host_ip} ${domain}"
+                hostname=$(echo "$entry" | awk '{print $2}')
+                sudo sed -i.bak "/[[:space:]]${hostname}[[:space:]]*$/d" "${temp_file}"
+                log "INFO" "Removed $entry from $windows_hosts_file"
+            done
 
-        # Convert WSL path to Windows path
-        temp_windows_path=$(wslpath -w "${temp_file}")
+            # Convert WSL path to Windows path
+            temp_windows_path=$(wslpath -w "${temp_file}")
 
-        # Use PowerShell to move the file with elevated permissions
-        powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+            # Use PowerShell to move the file with elevated permissions
+            powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
 
-        if [ $? -ne 0 ]; then
-            echo "Failed to move hosts file. Please run the script as an administrator."
+            if [ $? -ne 0 ]; then
+                log "ERROR" "Failed to move hosts file. Please run the script as an administrator."
+                exit 1
+            fi
+
+            # Flush DNS cache on Windows with elevated permissions
+            powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+
+            if [ $? -ne 0 ]; then
+                log "ERROR" "Failed to flush DNS cache. Please run the script as an administrator."
+                exit 1
+            fi
+            ;;
+        *)
+            log "ERROR" "Unsupported operating system."
             exit 1
-        fi
-
-        # Flush DNS cache on Windows with elevated permissions
-        powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
-
-        if [ $? -ne 0 ]; then
-            echo "Failed to flush DNS cache. Please run the script as an administrator."
-            exit 1
-        fi
-    fi
+            ;;
+    esac
 }
-
 
 # -----------------------------------------------------------------------------
 # Function: wait_for_nodes
@@ -342,56 +375,56 @@ clean_up_hosts_file() {
 #   $2 - (Optional) Interval in seconds between checks (default: 10)
 # -----------------------------------------------------------------------------
 wait_for_nodes() {
-  local timeout=${1:-600}      # Maximum time to wait for nodes to be ready (in seconds)
-  local interval=${2:-10}      # Interval between status checks (in seconds)
+    local timeout=${1:-600}      # Maximum time to wait for nodes to be ready (in seconds)
+    local interval=${2:-10}      # Interval between status checks (in seconds)
 
-  local start_time       # Start time of the wait period
+    local start_time       # Start time of the wait period
 
-  start_time=$(date +%s) # Record the start time
+    start_time=$(date +%s) # Record the start time
 
-  log "INFO" "Waiting for all kind nodes to be ready..."
+    log "INFO" "Waiting for all kind nodes to be ready..."
 
-  while true; do
-    local ready_nodes=0  # Number of nodes that are in the "Ready" state
-    local total_nodes=0  # Total number of nodes in the cluster
-    local current_time   # Current time
-    local elapsed_time   # Time elapsed since the start of the wait period
+    while true; do
+        local ready_nodes=0  # Number of nodes that are in the "Ready" state
+        local total_nodes=0  # Total number of nodes in the cluster
+        local current_time   # Current time
+        local elapsed_time   # Time elapsed since the start of the wait period
 
-    # Get the number of nodes that are ready
-    kubectl_output=$(kubectl get nodes --no-headers 2>&1)
-    # shellcheck disable=SC2181
-    if [ $? -ne 0 ]; then
-      log "ERROR" "Failed to get nodes. Output: $kubectl_output"
-      sleep "${interval}"
-      continue
-    fi
+        # Get the number of nodes that are ready
+        kubectl_output=$(kubectl get nodes --no-headers 2>&1)
+        # shellcheck disable=SC2181
+        if [ $? -ne 0 ]; then
+            log "ERROR" "Failed to get nodes. Output: $kubectl_output"
+            sleep "${interval}"
+            continue
+        fi
 
-    # Count the number of "Ready" nodes
-    ready_nodes=$(echo "$kubectl_output" | grep -c " Ready" || true)
-    # Count the total number of nodes
-    total_nodes=$(echo "$kubectl_output" | wc -l | xargs)
+        # Count the number of "Ready" nodes
+        ready_nodes=$(echo "$kubectl_output" | grep -c " Ready" || true)
+        # Count the total number of nodes
+        total_nodes=$(echo "$kubectl_output" | wc -l | xargs)
 
-    log "INFO" "Ready Nodes: ${ready_nodes}/${total_nodes}"
+        log "INFO" "Ready Nodes: ${ready_nodes}/${total_nodes}"
 
-    # Check if all nodes are ready
-    if [ "${ready_nodes}" -eq "${total_nodes}" ] && [ "${total_nodes}" -ne 0 ]; then
-      log "INFO" "All kind nodes are ready!"
-      break
-    fi
+        # Check if all nodes are ready
+        if [ "${ready_nodes}" -eq "${total_nodes}" ] && [ "${total_nodes}" -ne 0 ]; then
+            log "INFO" "All kind nodes are ready!"
+            break
+            fi
 
-    # Calculate the elapsed time
-    current_time=$(date +%s)
-    elapsed_time=$((current_time - start_time))
+        # Calculate the elapsed time
+        current_time=$(date +%s)
+        elapsed_time=$((current_time - start_time))
 
-    # Check if the timeout has been reached
-    if [ "${elapsed_time}" -ge "${timeout}" ]; then
-      log "ERROR" "Timeout reached. Kind nodes are not ready after ${timeout} seconds."
-      exit 1
-    fi
+        # Check if the timeout has been reached
+        if [ "${elapsed_time}" -ge "${timeout}" ]; then
+            log "ERROR" "Timeout reached. Kind nodes are not ready after ${timeout} seconds."
+            exit 1
+        fi
 
-    # Wait for the next interval
-    sleep "${interval}"
-  done
+        # Wait for the next interval
+        sleep "${interval}"
+    done
 }
 
 # -----------------------------------------------------------------------------
@@ -406,67 +439,67 @@ wait_for_nodes() {
 #   $2 - (Optional) Interval in seconds between checks (default: 10)
 # -----------------------------------------------------------------------------
 wait_for_nginx_ingress() {
-  local namespace="ingress-nginx"   # Namespace where the Nginx Ingress Controller is deployed
-  local selector="app.kubernetes.io/component=controller"  # Label selector to identify the pods
-  
-  local timeout=${1:-600}      # Maximum time to wait for pods to be ready (in seconds)
-  local interval=${2:-10}      # Interval between status checks (in seconds)
+    local namespace="ingress-nginx"   # Namespace where the Nginx Ingress Controller is deployed
+    local selector="app.kubernetes.io/component=controller"  # Label selector to identify the pods
+    
+    local timeout=${1:-600}      # Maximum time to wait for pods to be ready (in seconds)
+    local interval=${2:-10}      # Interval between status checks (in seconds)
 
-  local start_time       # Start time of the wait period
-  
-  start_time=$(date +%s) # Record the start time
+    local start_time       # Start time of the wait period
+    
+    start_time=$(date +%s) # Record the start time
 
-  log "INFO" "Waiting for Nginx Ingress Controller pods to be ready..."
+    log "INFO" "Waiting for Nginx Ingress Controller pods to be ready..."
 
-  while true; do
-    local ready_pods=0   # Number of pods that are in the "Ready" state
-    local total_pods=0   # Total number of pods matching the selector
-    local current_time   # Current time
-    local elapsed_time   # Time elapsed since the start of the wait period
+    while true; do
+        local ready_pods=0   # Number of pods that are in the "Ready" state
+        local total_pods=0   # Total number of pods matching the selector
+        local current_time   # Current time
+        local elapsed_time   # Time elapsed since the start of the wait period
 
-    # Get the number of pods that are ready
-    kubectl_output=$(kubectl get pods -n ${namespace} -l ${selector} -o jsonpath='{.items[*].status.containerStatuses[*].ready}' 2>&1)
+        # Get the number of pods that are ready
+        kubectl_output=$(kubectl get pods -n ${namespace} -l ${selector} -o jsonpath='{.items[*].status.containerStatuses[*].ready}' 2>&1)
 
-    # shellcheck disable=SC2181
-    if [ $? -ne 0 ]; then
-      log "ERROR" "Failed to get pods. Output: $kubectl_output"
-      sleep "${interval}"
-      continue
-    fi
-    ready_pods=$(echo "$kubectl_output" | grep -o "true" | wc -l | xargs || true)
+        # shellcheck disable=SC2181
+        if [ $? -ne 0 ]; then
+            log "ERROR" "Failed to get pods. Output: $kubectl_output"
+            sleep "${interval}"
+            continue
+        fi
+        ready_pods=$(echo "$kubectl_output" | grep -o "true" | wc -l | xargs || true)
 
-    # Get the total number of pods
-    kubectl_output=$(kubectl get pods -n ${namespace} -l ${selector} --no-headers 2>&1)
+        # Get the total number of pods
+        kubectl_output=$(kubectl get pods -n ${namespace} -l ${selector} --no-headers 2>&1)
 
-    # shellcheck disable=SC2181
-    if [ $? -ne 0 ]; then
-      log "ERROR" "Failed to get total number of pods. Output: $kubectl_output"
-      sleep "${interval}"
-      continue
-    fi
-    total_pods=$(echo "$kubectl_output" | wc -l | xargs)
+        # shellcheck disable=SC2181
+        if [ $? -ne 0 ]; then
+            log "ERROR" "Failed to get total number of pods. Output: $kubectl_output"
+            sleep "${interval}"
+            continue
+        fi
+        total_pods=$(echo "$kubectl_output" | wc -l | xargs)
 
-    log "INFO" "Ready Pods: ${ready_pods}/${total_pods}"
+        log "INFO" "Ready Pods: ${ready_pods}/${total_pods}"
 
-    # Check if all pods are ready
-    if [ "${ready_pods}" -eq "${total_pods}" ] && [ "${total_pods}" -ne 0 ]; then
-      log "INFO" "All Nginx Ingress Controller pods are ready!"
-      break
-    fi
+        # Check if all pods are ready
+        if [ "${ready_pods}" -eq "${total_pods}" ] && [ "${total_pods}" -ne 0 ]; then
+            log "INFO" "All Nginx Ingress Controller pods are ready!"
+            break
+        fi
 
-    # Calculate the elapsed time
-    current_time=$(date +%s) 
-    elapsed_time=$((current_time - start_time))
+        # Calculate the elapsed time
+        current_time=$(date +%s) 
+        elapsed_time=$((current_time - start_time))
 
-    # Check if the timeout has been reached
-    if [ "${elapsed_time}" -ge "${timeout}" ]; then
-      log "ERROR" "Timeout reached. Nginx Ingress Controller pods are not ready after ${timeout} seconds."
-      exit 1
-    fi
+        # Check if the timeout has been reached
+        if [ "${elapsed_time}" -ge "${timeout}" ]; then
+            log "ERROR" "Timeout reached. Nginx Ingress Controller pods are not ready after ${timeout} seconds."
+            exit 1
+        fi
 
-    # Wait for the next interval
-    sleep "${interval}"
-  done
+        # Wait for the next interval
+        sleep "${interval}"
+    done
 }
 
 # -----------------------------------------------------------------------------
@@ -476,9 +509,9 @@ wait_for_nginx_ingress() {
 #   $1 - Path to the Calico deployment YAML file
 # -----------------------------------------------------------------------------
 deploy_calico() {
-  local calico_yaml=$1
-  log "INFO" "Deploying Calico..."
-  kubectl apply -f "${calico_yaml}"
+    local calico_yaml=$1
+    log "INFO" "Deploying Calico..."
+    kubectl apply -f "${calico_yaml}"
 }
 
 # -----------------------------------------------------------------------------
@@ -488,9 +521,9 @@ deploy_calico() {
 #   $1 - Path to the NGINX Ingress Controller deployment YAML file
 # -----------------------------------------------------------------------------
 deploy_nginx_ingress() {
-  local nginx_ingress_yaml=$1
-  log "INFO" "Deploying NGINX Ingress Controller..."
-  kubectl apply -f "${nginx_ingress_yaml}"
+    local nginx_ingress_yaml=$1
+    log "INFO" "Deploying NGINX Ingress Controller..."
+    kubectl apply -f "${nginx_ingress_yaml}"
 }
 
 # -----------------------------------------------------------------------------
@@ -549,15 +582,26 @@ deploy_kubert_assistant() {
     read -p "Would you like to provide an OpenAI API key now? (yes/no): " provide_openai_key
     if [[ "$provide_openai_key" == "yes" ]]; then
         read -p "Please enter your OpenAI API key: " OPENAI_API_KEY
-        openai_provided="true"
     fi
 
-    if [[ "$openai_provided" == "false" ]]; then
-        read -p "Would you like to provide an Anthropic API key now? (yes/no): " provide_anthropic_key
-        if [[ "$provide_anthropic_key" == "yes" ]]; then
-            read -p "Please enter your Anthropic API key: " ANTHROPIC_API_KEY
-            anthropic_provided="true"
-        fi
+    read -p "Would you like to provide an Anthropic API key now? (yes/no): " provide_anthropic_key
+    if [[ "$provide_anthropic_key" == "yes" ]]; then
+        read -p "Please enter your Anthropic API key: " ANTHROPIC_API_KEY        
+    fi
+    
+    read -p "Would you like to provide an Groq API key now? (yes/no): " provide_groq_key
+    if [[ "$provide_groq_key" == "yes" ]]; then
+        read -p "Please enter your Grow API key: " GROQ_API_KEY        
+    fi
+
+    read -p "Would you like to provide an Google AI API key now? (yes/no): " provide_google_key
+    if [[ "$provide_google_key" == "yes" ]]; then
+        read -p "Please enter your Google AI API key: " GOOGLE_API_KEY
+    fi
+
+    read -p "Would you like to provide an Perplexity AI API key now? (yes/no): " provide_perplexity_key
+    if [[ "$provide_perplexity_key" == "yes" ]]; then
+        read -p "Please enter your Perplexity AI API key: " PERPLEXITY_API_KEY        
     fi
 
     for component in "${components[@]}"; do
@@ -576,6 +620,15 @@ deploy_kubert_assistant() {
                 fi
                 if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
                     additional_sets="--set extraEnvVars[1].value=${ANTHROPIC_API_KEY}"
+                fi
+                if [[ -n "${GROQ_API_KEY:-}" ]]; then
+                    additional_sets="--set extraEnvVars[2].value=${GROQ_API_KEY}"
+                fi
+                if [[ -n "${GOOGLE_API_KEY:-}" ]]; then
+                    additional_sets="--set extraEnvVars[3].value=${GOOGLE_API_KEY}"
+                fi
+                if [[ -n "${PERPLEXITY_API_KEY:-}" ]]; then
+                    additional_sets="--set extraEnvVars[4].value=${PERPLEXITY_API_KEY}"
                 fi
                 ;;
             *)

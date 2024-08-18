@@ -2,6 +2,7 @@
 layout: default
 title: Installation
 nav_nabled: true
+has_children: true
 ---
 
 # Installation Guide
@@ -38,6 +39,20 @@ To enable the AI capabilities of Kubert AI Assistant Lite, you need to set up an
 1. Sign up for an account at [Anthropic](https://console.anthropic.com/login){:target="_blank"} if you don't have one already.
 2. Navigate to the [API Keys](https://console.anthropic.com/settings/keys){:target="_blank"} section in your Anthropic account dashboard.
 3. Click on the "Create Key" button to generate a new API key.
+4. Copy the generated API key and store it securely.
+
+### Groq API Key
+
+1. Sign up for an account at [groqcloud](https://console.groq.com/login){:target="_blank"} if you don't have one already.
+2. Navigate to the [API Keys](https://console.groq.com/keys){:target="_blank"} section in your groqcloud account dashboard.
+3. Click on teh "Create Key" button to generate a new API key.
+4. Copy the generated API key and store it securely.
+
+### Google AI API key
+
+1. Sign up for an account at [AI Studio](https://ai.google.dev/aistudio){:target="_blank"} if you don't have one already.
+2. Click on teh "Get API Key" to navigate to the API keys section.
+3. Click on teh "Create Key" button to generate a new API key.
 4. Copy the generated API key and store it securely.
 
 Once you have obtained your API key, you will need to provide it during the installation process.

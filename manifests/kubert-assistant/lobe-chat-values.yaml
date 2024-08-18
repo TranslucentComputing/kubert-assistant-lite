@@ -4,7 +4,7 @@
 image:
   pullPolicy: IfNotPresent
   repository: lobehub/lobe-chat
-  tag: v1.7.3
+  tag: v1.11.5
 
 ## Container Http port
 containerPortHttp: 3210
@@ -15,6 +15,16 @@ extraEnvVars:
   value:
 - name: ANTHROPIC_API_KEY
   value:
+- name: GROQ_API_KEY
+  value:
+- name: GOOGLE_API_KEY
+  value:
+- name: PERPLEXITY_API_KEY
+  value:
+- name: OLLAMA_PROXY_URL
+  value: "http://kubert-ollama.lan:11434"
+- OLLAMA_MODEL_LIST:
+  value: "llama3.1"
 - name: DEFAULT_AGENT_CONFIG
   value: model=gpt-4o;tts.sttLocale=en-US;inputTemplate="Hello;I am a Kubert assistant;"
 - name: AGENTS_INDEX_URL
