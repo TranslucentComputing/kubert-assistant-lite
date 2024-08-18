@@ -2,7 +2,8 @@
 layout: default
 title: Ollama
 parent: Installation
-nav_order: 2
+nav_order: 1
+nav_fold: false
 ---
 
 ## Ollama Installation

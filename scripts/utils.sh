@@ -408,7 +408,7 @@ wait_for_nodes() {
 
         # Check if all nodes are ready
         if [ "${ready_nodes}" -eq "${total_nodes}" ] && [ "${total_nodes}" -ne 0 ]; then
-            log "INFO" "All kind nodes are ready!"
+            log "INFO" "All Kind nodes are ready!"
             break
             fi
 
@@ -575,10 +575,6 @@ deploy_kubert_assistant() {
     
     log "INFO" "Deploying Kubert Assistant components into namespace: $namespace using Helm..."
 
-    # Prompt user for API keys
-    local openai_provided="false"
-    local anthropic_provided="false"
-
     read -p "Would you like to provide an OpenAI API key now? (yes/no): " provide_openai_key
     if [[ "$provide_openai_key" == "yes" ]]; then
         read -p "Please enter your OpenAI API key: " OPENAI_API_KEY
@@ -591,7 +587,7 @@ deploy_kubert_assistant() {
     
     read -p "Would you like to provide an Groq API key now? (yes/no): " provide_groq_key
     if [[ "$provide_groq_key" == "yes" ]]; then
-        read -p "Please enter your Grow API key: " GROQ_API_KEY        
+        read -p "Please enter your Groq API key: " GROQ_API_KEY        
     fi
 
     read -p "Would you like to provide an Google AI API key now? (yes/no): " provide_google_key
@@ -616,19 +612,19 @@ deploy_kubert_assistant() {
                 ;;
             "lobechat")
                 if [[ -n "${OPENAI_API_KEY:-}" ]]; then
-                    additional_sets="--set extraEnvVars[0].value=${OPENAI_API_KEY}"
+                    additional_sets+="--set extraEnvVars[0].value=${OPENAI_API_KEY}"
                 fi
                 if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
-                    additional_sets="--set extraEnvVars[1].value=${ANTHROPIC_API_KEY}"
+                    additional_sets+=" --set extraEnvVars[1].value=${ANTHROPIC_API_KEY}"
                 fi
                 if [[ -n "${GROQ_API_KEY:-}" ]]; then
-                    additional_sets="--set extraEnvVars[2].value=${GROQ_API_KEY}"
+                    additional_sets+=" --set extraEnvVars[2].value=${GROQ_API_KEY}"
                 fi
                 if [[ -n "${GOOGLE_API_KEY:-}" ]]; then
-                    additional_sets="--set extraEnvVars[3].value=${GOOGLE_API_KEY}"
+                    additional_sets+=" --set extraEnvVars[3].value=${GOOGLE_API_KEY}"
                 fi
                 if [[ -n "${PERPLEXITY_API_KEY:-}" ]]; then
-                    additional_sets="--set extraEnvVars[4].value=${PERPLEXITY_API_KEY}"
+                    additional_sets+=" --set extraEnvVars[4].value=${PERPLEXITY_API_KEY}"
                 fi
                 ;;
             *)

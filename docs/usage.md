@@ -39,3 +39,18 @@ The memory hog yaml can be found [HERE](https://raw.githubusercontent.com/Transl
         Your browser does not support the video tag.
     </video>
 </div>
+
+## Installing Ollama and Configuring Kubert AI Assistant Lite
+
+In this video, we walk you through the process of installing Ollama, deploying Kubert AI Assistant Lite, and configuring Ollama within the Kubert UI settings. This comprehensive guide is perfect for anyone looking to integrate AI-powered tools into their Kubernetes environment seamlessly.
+
+Once, you've installed Ollama and configured the environment variables, pull the models from the Ollama library.
+
+Additional information is available in [Ollama Installation Guide](ollama.html).
+
+<div class="video-container">
+    <video width="640" height="315" controls>
+        <source src="/kubert-assistant-lite/assets/video/ollama-installation-kubert-ai-config.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>

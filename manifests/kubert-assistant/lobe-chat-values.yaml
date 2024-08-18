@@ -23,7 +23,7 @@ extraEnvVars:
   value:
 - name: OLLAMA_PROXY_URL
   value: "http://kubert-ollama.lan:11434"
-- OLLAMA_MODEL_LIST:
+- name: OLLAMA_MODEL_LIST
   value: "llama3.1"
 - name: DEFAULT_AGENT_CONFIG
   value: model=gpt-4o;tts.sttLocale=en-US;inputTemplate="Hello;I am a Kubert assistant;"

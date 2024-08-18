@@ -116,7 +116,7 @@ teardown() {
     run wait_for_nodes 1 0.5
     assert_success
     run tail -n 1 "$TEMP_LOG_FILE"
-    assert_output --partial "[INFO]: All kind nodes are ready!"
+    assert_output --partial "[INFO]: All Kind nodes are ready!"
 }
 
 @test "wait_for_nodes should fail when not all nodes are ready within timeout" {
@@ -124,7 +124,7 @@ teardown() {
     run wait_for_nodes 1 0.5
     assert_failure
     run tail -n 1 "$TEMP_LOG_FILE"
-    assert_output --partial "[ERROR]: Timeout reached. kind nodes are not ready after 1 seconds."
+    assert_output --partial "[ERROR]: Timeout reached. Kind nodes are not ready after 1 seconds."
 }
 
 @test "wait_for_nginx_ingress should succeed when all pods are ready" {

@@ -3,6 +3,8 @@ layout: default
 title: Installation
 nav_nabled: true
 has_children: true
+has_toc: false
+nav_fold: false
 ---
 
 # Installation Guide
