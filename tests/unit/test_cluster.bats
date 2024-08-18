@@ -46,7 +46,7 @@ setup_mock_helm() {
     assert_success
     run tail -n 2 "$TEMP_LOG_FILE"
     assert_output --partial "[INFO]: Creating kind cluster named test-cluster..."
-    assert_output --partial "[INFO]: Kind cluster test-cluster created successfully."
+    assert_output --partial "[INFO]: kind cluster test-cluster created successfully."
 }
 
 @test "deploy_application should log and call helm commands" {

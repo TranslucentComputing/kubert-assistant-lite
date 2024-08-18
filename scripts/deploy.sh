@@ -6,7 +6,7 @@
 #
 # Usage:       ./deploy.sh
 #
-# Copyright © 2024 KubertAI
+# Copyright © 2024 Kubert
 # -----------------------------------------------------------------------------
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -34,7 +34,7 @@ log "INFO" "Starting deployment process..."
 
 # Check if the kind cluster already exists
 if kind get clusters | grep -q "${KIND_CLUSTER_NAME}"; then
-    log "INFO" "Kind cluster ${KIND_CLUSTER_NAME} already exists. Skipping creation."
+    log "INFO" "kind cluster ${KIND_CLUSTER_NAME} already exists. Skipping creation."
 else
     create_kind_cluster "${KIND_CLUSTER_NAME}" "${KIND_CONFIG}"
 fi

@@ -1,6 +1,6 @@
 # Makefile for running Bats tests and generating coverage with kcov
 #
-# Copyright 2024 KubertAI
+# Copyright 2024 Kubert
 
 # Use bash as the shell
 SHELL := /bin/bash
@@ -126,7 +126,7 @@ cleanup: ## Clean up kind cluster and hosts file
 check-deps-dev: ## Check for required dependencies for development
 	@command -v docker >/dev/null 2>&1 || { echo >&2 "Docker is not installed. Aborting."; exit 1; }
 	@docker info >/dev/null 2>&1 || { echo >&2 "Docker is not running or not accessible. Aborting."; exit 1; }
-	@command -v kind >/dev/null 2>&1 || { echo >&2 "Kind is not installed. Aborting."; exit 1; }
+	@command -v kind >/dev/null 2>&1 || { echo >&2 "kind is not installed. Aborting."; exit 1; }
 	@command -v kubectl >/dev/null 2>&1 || { echo >&2 "Kubectl is not installed. Aborting."; exit 1; }
 	@command -v helm >/dev/null 2>&1 || { echo >&2 "Helm is not installed. Aborting."; exit 1; }
 	@command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not installed. Aborting."; exit 1; }
@@ -138,7 +138,7 @@ check-deps-dev: ## Check for required dependencies for development
 check-deps-deploy: ## Check for required dependencies for deployment
 	$(Q)command -v docker >/dev/null 2>&1 || { echo >&2 "Docker is not installed. Aborting."; exit 1; }
 	@docker info >/dev/null 2>&1 || { echo >&2 "Docker is not running or not accessible. Aborting."; exit 1; }
-	$(Q)command -v kind >/dev/null 2>&1 || { echo >&2 "Kind is not installed. Aborting."; exit 1; }
+	$(Q)command -v kind >/dev/null 2>&1 || { echo >&2 "kind is not installed. Aborting."; exit 1; }
 	$(Q)command -v kubectl >/dev/null 2>&1 || { echo >&2 "Kubectl is not installed. Aborting."; exit 1; }
 	$(Q)command -v helm >/dev/null 2>&1 || { echo >&2 "Helm is not installed. Aborting."; exit 1; }
 	$(Q)command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not installed. Aborting."; exit 1; }

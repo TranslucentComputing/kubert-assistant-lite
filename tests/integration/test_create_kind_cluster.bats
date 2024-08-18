@@ -33,7 +33,7 @@ teardown() {
     echo "# Running create_kind_cluster function..." >&3
     run create_kind_cluster "$KIND_CLUSTER_NAME" "tests/integration/kind-config.yaml"
     assert_success "create_kind_cluster function should succeed"
-    echo "# Kind cluster creation step completed." >&3
+    echo "# kind cluster creation step completed." >&3
 
     # Wait for the nodes to be ready
     wait_for_nodes
@@ -41,8 +41,8 @@ teardown() {
     # Step 2: Check that the kind cluster was created
     echo "# Checking if the kind cluster was created..." >&3
     run kind get clusters
-    assert_output --partial "$KIND_CLUSTER_NAME" "Kind cluster should be listed"
-    echo "# Kind cluster verification step completed." >&3
+    assert_output --partial "$KIND_CLUSTER_NAME" "kind cluster should be listed"
+    echo "# kind cluster verification step completed." >&3
 
     # Check nodes
     echo "# Checking if nodes are present..." >&3

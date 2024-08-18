@@ -13,7 +13,7 @@
 # kcov/kcov:latest
 #
 # Maintainer:
-# KubertAI
+# Kubert
 # -----------------------------------------------------------------------------
 
 # Use the latest kcov image as the base image

@@ -14,7 +14,7 @@ This guide provides step-by-step instructions to install and set up Kubert AI As
 Before proceeding with the installation, ensure you have the following software installed:
 
 - [Docker](https://docs.docker.com/get-docker/){:target="_blank"}
-- [Kind](https://kind.sigs.k8s.io/){:target="_blank"}
+- [kind](https://kind.sigs.k8s.io/){:target="_blank"}
 - [Helm](https://helm.sh/docs/intro/install/){:target="_blank"}
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/){:target="_blank"}
 - [jq](https://stedolan.github.io/jq/){:target="_blank"}
@@ -84,7 +84,7 @@ Follow these steps to install and set up Kubert AI Assistant Lite:
     make check-deps-deploy
     ```
 
-4. **Deploy the Kind Cluster and Application**
+4. **Deploy the kind Cluster and Application**
 
     Use the Makefile to deploy:
 
@@ -92,7 +92,7 @@ Follow these steps to install and set up Kubert AI Assistant Lite:
     make deploy
     ```
 
-    This command will set up the Kind cluster and deploy the application using Helm. During the deployment `OPENAI_API_KEY` will be requested as well as the system password to update `/etc/hosts` file with the local domains. For Windows users the user admin password is required to update `c:\Windows\System32\Drivers\etc\hosts`.
+    This command will set up the kind cluster and deploy the application using Helm. During the deployment `OPENAI_API_KEY` will be requested as well as the system password to update `/etc/hosts` file with the local domains. For Windows users the user admin password is required to update `c:\Windows\System32\Drivers\etc\hosts`.
 
 5. **Open browser to [http://kubert-assistant.lan/](http://kubert-assistant.lan/){:target="_blank"}**
 
@@ -105,13 +105,13 @@ Follow these steps to install and set up Kubert AI Assistant Lite:
 
 ## Cleaning Up
 
-To clean up and delete the Kind cluster and the Kubert AI Assistant Lite components, run the following command:
+To clean up and delete the kind cluster and the Kubert AI Assistant Lite components, run the following command:
 
 ```bash
 make cleanup
 ```
 
-This command will remove the Kind cluster and all the associated resources, bringing your environment back to its initial state.
+This command will remove the kind cluster and all the associated resources, bringing your environment back to its initial state.
 
 ## Terminal Deployment
 

@@ -353,7 +353,7 @@
 [39.616686, "o", "\r \u001b[32m✓\u001b[0m Installing StorageClass 💾\r\n"]
 [40.330772, "o", "Set kubectl context to \"kind-kubert-cluster\"\r\nYou can now use your cluster with:\r\n\r\nkubectl cluster-info --context kind-kubert-cluster\r\n\r\n"]
 [40.331121, "o", "Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂\r\n"]
-[40.340472, "o", "\u001b[0;32m2024-08-02 14:21:09 [INFO]: Kind cluster kubert-cluster created successfully.\u001b[0m\r\n"]
+[40.340472, "o", "\u001b[0;32m2024-08-02 14:21:09 [INFO]: kind cluster kubert-cluster created successfully.\u001b[0m\r\n"]
 [40.348123, "o", "\u001b[0;32m2024-08-02 14:21:09 [INFO]: Deploying Calico...\u001b[0m\r\n"]
 [41.609743, "o", "poddisruptionbudget.policy/calico-kube-controllers created\r\n"]
 [41.630165, "o", "serviceaccount/calico-kube-controllers created\r\n"]

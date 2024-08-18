@@ -4,7 +4,7 @@
 # Script Name: utils.sh
 # Description: This file contains utility functions used in the deployment script.
 #
-# Copyright © 2024 KubertAI
+# Copyright © 2024 Kubert
 # -----------------------------------------------------------------------------
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -144,7 +144,7 @@ create_kind_cluster() {
     
     log "INFO" "Creating kind cluster named $cluster_name..."
     kind create cluster --name "$cluster_name" --config "$config_file"
-    log "INFO" "Kind cluster $cluster_name created successfully."
+    log "INFO" "kind cluster $cluster_name created successfully."
 }
 
 # -----------------------------------------------------------------------------
@@ -563,7 +563,7 @@ deploy_local_chart() {
 # Parameters:
 #   $1 - Path to the Helm chart directory
 #   $2 - Kubernetes namespace
-#   $3 - Kind cluster name
+#   $3 - kind cluster name
 #   $4 - Array of components with their release names and values files
 # -----------------------------------------------------------------------------
 deploy_kubert_assistant() {
@@ -648,7 +648,7 @@ deploy_kubert_assistant() {
 # Function: get_docker_ip
 # Description: Retrieves the Docker IP of the kind control plane container.
 # Parameters:
-#   $1 - Kind cluster name
+#   $1 - kind cluster name
 # -----------------------------------------------------------------------------
 get_docker_ip() {
     local kind_cluster_name="$1"
