@@ -2,7 +2,7 @@
 
 Kubert AI Assistant Lite is an open-source project designed to deploy a lightweight version of Kubert Assistant in a local kind (Kubernetes in Docker) cluster. This version includes a single AI agent, the Kubectl Agent, which can execute `kubectl` commands within the cluster.
 
-Additional documentations can be found here -> [Documentations](https://translucentcomputing.github.io/kubert-assistant-lite/)
+Additional documentation can be found here -> [Documentation](https://translucentcomputing.github.io/kubert-assistant-lite/)
 
 Setup video -> [Video](https://translucentcomputing.github.io/kubert-assistant-lite/usage.html#kubert-ai-assistant-setup)
 
