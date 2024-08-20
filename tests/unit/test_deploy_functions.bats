@@ -187,7 +187,7 @@ EOF
 
 @test "get_host_ip should return the correct host IP address using ip" {
     if [[ "$PLATFORM" == "Darwin" || "$PLATFORM" == "Linux" ]]; then
-         # Mock the ip command to return a specific IP address
+        # Mock the ip command to return a specific IP address
         echo -e "#!/usr/bin/env bash\nif [[ \$1 = 'route' && \$2 = 'get' && \$3 = '1' ]]; then echo '1.1.1.1 via 192.168.0.1 dev eth0 src 192.168.0.10 \n    cache \n'; fi" > "$MOCK_DIR/ip"
         chmod +x "$MOCK_DIR/ip"
         
@@ -201,18 +201,24 @@ EOF
 
 @test "get_host_ip should return the correct host IP address using ifconfig" {
     if [[ "$PLATFORM" == "Darwin" || "$PLATFORM" == "Linux" ]]; then
-        # Mock the ip command to simulate it not being found
-        echo -e "#!/usr/bin/env bash\nexit 127" > "$MOCK_DIR/ip"    
-        chmod +x "$MOCK_DIR/ip"
+        # Save the original PATH
+        ORIGINAL_PATH=$PATH
         
+        # Remove any directories that contain the ip command from the PATH
+        PATH=$(echo "$PATH" | tr ':' '\n' | grep -v "$(dirname $(which ip))" | tr '\n' ':')
+
+        # Prepend MOCK_DIR to PATH to ensure the mock commands are used
+        export PATH="$MOCK_DIR:$PATH"
+
         # Mock the ifconfig command to return a specific IP address
-        echo -e "#!/usr/bin/env bash\nif [[ \$0 == *'ifconfig' ]]; then echo 'inet 192.168.0.10 netmask 255.255.255.0 broadcast 192.168.0.255'; fi" > "$MOCK_DIR/ifconfig"
+        echo -e "#!/usr/bin/env bash\necho 'inet 192.168.0.10 netmask 255.255.255.0 broadcast 192.168.0.255'" > "$MOCK_DIR/ifconfig"
         chmod +x "$MOCK_DIR/ifconfig"
-        
-        run get_host_ip
-        tail -n 10 $LOG_FILE
+
+        run get_host_ip        
         assert_success
         assert_output "192.168.0.10"
+        # Restore the original PATH
+        export PATH=$ORIGINAL_PATH
     else
         skip "Test skipped on non-Linux/macOS platforms"
     fi
