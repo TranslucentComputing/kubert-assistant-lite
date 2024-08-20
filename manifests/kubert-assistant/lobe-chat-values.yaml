@@ -4,7 +4,7 @@
 image:
   pullPolicy: IfNotPresent
   repository: lobehub/lobe-chat
-  tag: v1.11.5
+  tag: v1.11.9
 
 ## Container Http port
 containerPortHttp: 3210
@@ -12,15 +12,15 @@ containerPortHttp: 3210
 ## Environment variables
 extraEnvVars:
 - name: OPENAI_API_KEY
-  value:
+  value: ""
 - name: ANTHROPIC_API_KEY
-  value:
+  value: ""
 - name: GROQ_API_KEY
-  value:
+  value: ""
 - name: GOOGLE_API_KEY
-  value:
+  value: ""
 - name: PERPLEXITY_API_KEY
-  value:
+  value: ""
 - name: OLLAMA_PROXY_URL
   value: "http://kubert-ollama.lan:11434"
 - name: OLLAMA_MODEL_LIST
@@ -31,7 +31,7 @@ extraEnvVars:
   value: http://kubert-agent.lan
 - name: PLUGINS_INDEX_URL
   value: http://kubert-plugin.lan
-- name: ACCESS_CODE
+- name: ACCESS_CODES
   value: kubert
 
 
