@@ -29,10 +29,35 @@ setup() {
     chmod +x "$MOCK_DIR/get_host_ip"
     source "$MOCK_DIR/get_host_ip"
 
-    # Mock macOS specific commands to prevent actual execution
-    echo -e "#!/usr/bin/env bash\necho 'Flushed DNS cache'" > "$MOCK_DIR/dscacheutil"
-    echo -e "#!/usr/bin/env bash\necho 'No matching processes belonging to you were found'" > "$MOCK_DIR/killall"
-    chmod +x "$MOCK_DIR/dscacheutil" "$MOCK_DIR/killall"
+    # Detect the platform
+    PLATFORM=$(uname -s)
+    if grep -qi microsoft /proc/version &> /dev/null; then
+        PLATFORM="WSL"
+    fi
+
+    # Platform-specific mocks
+    case "$PLATFORM" in
+        "Darwin")
+            # Mock macOS specific commands to prevent actual execution
+            echo -e "#!/usr/bin/env bash\necho 'Flushed DNS cache'" > "$MOCK_DIR/dscacheutil"
+            echo -e "#!/usr/bin/env bash\necho 'No matching processes belonging to you were found'" > "$MOCK_DIR/killall"
+            chmod +x "$MOCK_DIR/dscacheutil" "$MOCK_DIR/killall"
+            ;;
+        "Linux"|"WSL")
+            # Mock Linux/WSL specific commands
+            if [[ "$PLATFORM" == "WSL" ]]; then
+                echo -e "#!/usr/bin/env bash\necho 'Windows hosts file updated'" > "$MOCK_DIR/powershell.exe"
+                chmod +x "$MOCK_DIR/powershell.exe"
+            else
+                echo -e "#!/usr/bin/env bash\necho 'Flushed DNS cache using resolvectl'" > "$MOCK_DIR/resolvectl"
+                chmod +x "$MOCK_DIR/resolvectl"
+            fi
+            ;;
+        *)
+            echo "Unsupported platform: $PLATFORM"
+            exit 1
+            ;;
+    esac
 }
 
 teardown() {

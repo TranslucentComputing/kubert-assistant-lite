@@ -16,6 +16,12 @@ setup() {
     # Create a temporary directory for mocks
     MOCK_DIR=$(mktemp -d)
     export PATH="$MOCK_DIR:$PATH"
+
+    # Determine the platform (macOS, Linux, WSL)
+    PLATFORM=$(uname -s)
+    if grep -qi microsoft /proc/version &> /dev/null; then
+        PLATFORM="WSL"
+    fi
 }
 
 teardown() {
@@ -104,10 +110,13 @@ teardown() {
     run deploy_kubert_assistant "$chart_path" "$namespace" "$kind_cluster_name" "${components[@]}" <<EOF
 yes
 fake-openai-api-key
+no
+no
+no
+no
 EOF
     assert_success
 
-    tail -n 20 "$TEMP_LOG_FILE"
     run tail -n 20 "$TEMP_LOG_FILE"
     assert_output --partial "[INFO]: Deploying Kubert Assistant components into namespace: $namespace using Helm..."
 
@@ -124,9 +133,14 @@ EOF
 no
 yes
 fake-anthropic-api-key
+no
+no
+no
 EOF
 
-    run grep "helm upgrade --install lobechat $chart_path --values values2.yaml --namespace $namespace --create-namespace --set extraEnvVars\[1\].value=fake-anthropic-api-key" "$TEMP_LOG_FILE"
+    assert_success
+
+    run grep "helm upgrade --install lobechat $chart_path --values values2.yaml --namespace $namespace --create-namespace  --set extraEnvVars\[1\].value=fake-anthropic-api-key" "$TEMP_LOG_FILE"
     assert_success
 
 }
@@ -172,26 +186,48 @@ EOF
 }
 
 @test "get_host_ip should return the correct host IP address using ip" {
-    # Mock the ip command to return a specific IP address
-    echo -e "#!/usr/bin/env bash\nif [[ \$1 = 'route' && \$2 = 'get' && \$3 = '1' ]]; then echo '1.1.1.1 via 192.168.0.1 dev eth0 src 192.168.0.10 \n    cache \n'; fi" > "$MOCK_DIR/ip"
-    chmod +x "$MOCK_DIR/ip"
-    
-    run get_host_ip
-    assert_success
-    assert_output "192.168.0.10"
+    if [[ "$PLATFORM" == "Darwin" || "$PLATFORM" == "Linux" ]]; then
+         # Mock the ip command to return a specific IP address
+        echo -e "#!/usr/bin/env bash\nif [[ \$1 = 'route' && \$2 = 'get' && \$3 = '1' ]]; then echo '1.1.1.1 via 192.168.0.1 dev eth0 src 192.168.0.10 \n    cache \n'; fi" > "$MOCK_DIR/ip"
+        chmod +x "$MOCK_DIR/ip"
+        
+        run get_host_ip
+        assert_success
+        assert_output "192.168.0.10"
+    else
+        skip "Test skipped on non-Linux/macOS platforms"
+    fi
 }
 
 @test "get_host_ip should return the correct host IP address using ifconfig" {
-    # Mock the ip command to simulate it not being found
-    echo -e "#!/usr/bin/env bash\nexit 127" > "$MOCK_DIR/ip"    
-    chmod +x "$MOCK_DIR/ip"
-    
-    # Mock the ifconfig command to return a specific IP address
-    echo -e "#!/usr/bin/env bash\nif [[ \$0 == *'ifconfig' ]]; then echo 'inet 192.168.0.10 netmask 255.255.255.0 broadcast 192.168.0.255'; fi" > "$MOCK_DIR/ifconfig"
-    chmod +x "$MOCK_DIR/ifconfig"
-    
-    run get_host_ip
-    tail -n 10 $LOG_FILE
-    assert_success
-    assert_output "192.168.0.10"
+    if [[ "$PLATFORM" == "Darwin" || "$PLATFORM" == "Linux" ]]; then
+        # Mock the ip command to simulate it not being found
+        echo -e "#!/usr/bin/env bash\nexit 127" > "$MOCK_DIR/ip"    
+        chmod +x "$MOCK_DIR/ip"
+        
+        # Mock the ifconfig command to return a specific IP address
+        echo -e "#!/usr/bin/env bash\nif [[ \$0 == *'ifconfig' ]]; then echo 'inet 192.168.0.10 netmask 255.255.255.0 broadcast 192.168.0.255'; fi" > "$MOCK_DIR/ifconfig"
+        chmod +x "$MOCK_DIR/ifconfig"
+        
+        run get_host_ip
+        tail -n 10 $LOG_FILE
+        assert_success
+        assert_output "192.168.0.10"
+    else
+        skip "Test skipped on non-Linux/macOS platforms"
+    fi
+}
+
+@test "get_host_ip should return the correct host IP address using route.exe in WSL" {
+    if [[ "$PLATFORM" == "WSL" ]]; then
+        # Mock the route.exe command to return a specific IP address
+        echo -e "#!/usr/bin/env bash\nif [[ \$1 = 'PRINT' ]]; then echo '0.0.0.0          0.0.0.0         10.0.0.1         10.0.0.4'; fi" > "$MOCK_DIR/route.exe"
+        chmod +x "$MOCK_DIR/route.exe"
+        
+        run get_host_ip
+        assert_success
+        assert_output "10.0.0.4"
+    else
+        skip "Test skipped on non-WSL platforms"
+    fi
 }

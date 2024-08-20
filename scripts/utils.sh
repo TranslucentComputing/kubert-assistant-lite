@@ -212,7 +212,7 @@ update_hosts_file() {
         for domain in "${hosts_entries[@]}"; do
             entry="$host_ip $domain"
             if ! grep -q "$entry" "$HOSTS_FILE_PATH"; then
-                echo "$entry" | sudo tee -a "$HOSTS_FILE_PATH"
+                echo "$entry" | sudo tee -a "$HOSTS_FILE_PATH" > /dev/null
                 log "INFO" "Added $entry to $HOSTS_FILE_PATH"
             else
                 log "INFO" "$entry already exists in $HOSTS_FILE_PATH"
@@ -220,7 +220,7 @@ update_hosts_file() {
         done
 
         # Detect the OS and apply relevant commands
-        case "$(uname)" in
+        case "$(uname -s)" in
             "Darwin")
                 # macOS specific actions
                 sudo dscacheutil -flushcache
@@ -228,43 +228,49 @@ update_hosts_file() {
                 log "INFO" "Flushed DNS cache on macOS"
                 ;;
             "Linux")
-                # Linux specific actions
-                log "INFO" "Assuming DNS cache flush is not necessary on Linux or managed by systemd-resolved"
-                ;;
-            "MINGW"*|"CYGWIN"*|"MSYS"*)
-                # Windows specific actions via WSL or Git Bash
-                local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
-                temp_file=$(mktemp)
-                sudo cp "${windows_hosts_file}" "${temp_file}"
-                
-                for domain in "${hosts_entries[@]}"; do
-                    entry="${host_ip} ${domain}"
-                    hostname=$(echo "$entry" | awk '{print $2}')
-                    if ! grep -q "$entry" "${temp_file}"; then
-                        sudo sed -i "\$a${entry}" "${temp_file}"
-                        log "INFO" "Added $entry to $windows_hosts_file"
-                    else
-                        log "INFO" "$entry already exists in $windows_hosts_file"
+                # WSL or Linux specific actions
+                if grep -qi microsoft /proc/version; then
+                    local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
+                    temp_file=$(mktemp "$HOME/tmp.XXXXXX")
+                    sudo cp "${windows_hosts_file}" "${temp_file}"
+                    
+                    for domain in "${hosts_entries[@]}"; do
+                        entry="${host_ip} ${domain}"
+                        hostname=$(echo "$entry" | awk '{print $2}')
+                        if ! grep -q "$entry" "${temp_file}"; then
+                            echo "$entry" | sudo tee -a "${temp_file}" > /dev/null
+                            log "INFO" "Added $entry to $windows_hosts_file"
+                        else
+                            log "INFO" "$entry already exists in $windows_hosts_file"
+                        fi
+                    done
+
+                    # Convert WSL path to Windows path
+                    temp_windows_path=$(wslpath -w "${temp_file}")
+
+                    # Use PowerShell to move the file with elevated permissions
+                    powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+
+                    if [ $? -ne 0 ]; then
+                        log "ERROR" "Failed to update hosts file. Please run the script as an administrator."
+                        exit 1
                     fi
-                done
 
-                # Convert WSL path to Windows path
-                temp_windows_path=$(wslpath -w "${temp_file}")
+                    # Flush DNS cache on Windows with elevated permissions
+                    powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
 
-                # Use PowerShell to move the file with elevated permissions
-                powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
-
-                if [ $? -ne 0 ]; then
-                    log "ERROR" "Failed to update hosts file. Please run the script as an administrator."
-                    exit 1
-                fi
-
-                # Flush DNS cache on Windows with elevated permissions
-                powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
-
-                if [ $? -ne 0 ]; then
-                    log "ERROR" "Failed to flush DNS cache. Please run the script as an administrator."
-                    exit 1
+                    if [ $? -ne 0 ]; then
+                        log "ERROR" "Failed to flush DNS cache. Please run the script as an administrator."
+                        exit 1
+                    fi
+                else
+                    # Native Linux actions
+                    if command -v resolvectl &> /dev/null; then
+                        sudo resolvectl flush-caches
+                        log "INFO" "Flushed DNS cache using resolvectl"
+                    else
+                        log "INFO" "DNS cache flush is not necessary or not supported on this Linux distribution"
+                    fi
                 fi
                 ;;
             *)
@@ -315,7 +321,7 @@ clean_up_hosts_file() {
     sudo mv "${temp_file}" "${HOSTS_FILE_PATH}"
 
     # Detect the OS and apply relevant commands
-    case "$(uname)" in
+    case "$(uname -s)" in
         "Darwin")
             # macOS specific actions
             sudo dscacheutil -flushcache
@@ -323,38 +329,44 @@ clean_up_hosts_file() {
             log "INFO" "Flushed DNS cache on macOS"
             ;;
         "Linux")
-            # Linux specific actions
-            log "INFO" "Assuming DNS cache flush is not necessary on Linux or managed by systemd-resolved"
-            ;;
-        "MINGW"*|"CYGWIN"*|"MSYS"*)
-            # Windows specific actions via WSL or Git Bash    
-            local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
-            temp_file=$(mktemp)
-            sudo cp "${windows_hosts_file}" "${temp_file}"
-            for domain in "${hosts_entries[@]}"; do
-                entry="${host_ip} ${domain}"
-                hostname=$(echo "$entry" | awk '{print $2}')
-                sudo sed -i.bak "/[[:space:]]${hostname}[[:space:]]*$/d" "${temp_file}"
-                log "INFO" "Removed $entry from $windows_hosts_file"
-            done
+            # WSL or Linux specific actions
+            if grep -qi microsoft /proc/version; then   
+                local windows_hosts_file="/mnt/c/Windows/System32/drivers/etc/hosts"
+                temp_file=$(mktemp "$HOME/tmp.XXXXXX")
+                sudo cp "${windows_hosts_file}" "${temp_file}"
+                for domain in "${hosts_entries[@]}"; do
+                    entry="${host_ip} ${domain}"
+                    hostname=$(echo "$entry" | awk '{print $2}')
+                    sudo sed -i.bak "/[[:space:]]${hostname}[[:space:]]*$/d" "${temp_file}"
+                    log "INFO" "Removed $entry from $windows_hosts_file"
+                done
 
-            # Convert WSL path to Windows path
-            temp_windows_path=$(wslpath -w "${temp_file}")
+                # Convert WSL path to Windows path
+                temp_windows_path=$(wslpath -w "${temp_file}")
 
-            # Use PowerShell to move the file with elevated permissions
-            powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+                # Use PowerShell to move the file with elevated permissions
+                powershell.exe -Command "Start-Process powershell -ArgumentList 'Move-Item -Force -Path \"${temp_windows_path}\" -Destination \"C:\\Windows\\System32\\drivers\\etc\\hosts\"' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
 
-            if [ $? -ne 0 ]; then
-                log "ERROR" "Failed to move hosts file. Please run the script as an administrator."
-                exit 1
-            fi
+                if [ $? -ne 0 ]; then
+                    log "ERROR" "Failed to move hosts file. Please run the script as an administrator."
+                    exit 1
+                fi
 
-            # Flush DNS cache on Windows with elevated permissions
-            powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
+                # Flush DNS cache on Windows with elevated permissions
+                powershell.exe -Command "Start-Process powershell -ArgumentList 'ipconfig /flushdns' -Verb RunAs; if (\$?) { exit 0 } else { exit 1 }"
 
-            if [ $? -ne 0 ]; then
-                log "ERROR" "Failed to flush DNS cache. Please run the script as an administrator."
-                exit 1
+                if [ $? -ne 0 ]; then
+                    log "ERROR" "Failed to flush DNS cache. Please run the script as an administrator."
+                    exit 1
+                fi
+            else
+                # Native Linux actions
+                if command -v resolvectl &> /dev/null; then
+                    sudo resolvectl flush-caches
+                    log "INFO" "Flushed DNS cache using resolvectl"
+                else
+                    log "INFO" "DNS cache flush is not necessary or not supported on this Linux distribution"
+                fi
             fi
             ;;
         *)
@@ -688,15 +700,37 @@ uninstall_kubert_assistant() {
 get_host_ip() {
     local host_ip=""
 
-    # Try to get the host IP using ip command
-    if command -v ip &> /dev/null; then
-        host_ip=$(ip route get 1 | awk '{print $7; exit}')
-    fi
+    # Determine the platform
+    local platform=$(uname -s)
 
-    # If ip command is not available or failed, use ifconfig
-    if [[ -z "$host_ip" ]] && command -v ifconfig &> /dev/null; then
-        host_ip=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)' | grep -Eo '([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)' | grep -v '127.0.0.1' | head -n 1)
-    fi
+    case "$platform" in
+        Darwin)
+            # macOS specific command to get the host IP
+            if command -v ip &> /dev/null; then
+                host_ip=$(ip route get 1 | awk '{print $7; exit}')
+            elif command -v ifconfig &> /dev/null; then
+                host_ip=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)' | grep -Eo '([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)' | grep -v '127.0.0.1' | head -n 1)
+            fi
+            ;;
+        Linux)
+            # WSL or Linux specific command to get the host IP
+            if grep -qi microsoft /proc/version; then
+                # If running in WSL, use route.exe to find the host IP
+                host_ip=$(route.exe PRINT | grep "0.0.0.0" | awk '{print $4}' | head -n 1)
+            else
+                # Regular Linux (non-WSL)
+                if command -v ip &> /dev/null; then
+                    host_ip=$(ip route get 1 | awk '{print $7; exit}')
+                elif command -v ifconfig &> /dev/null; then
+                    host_ip=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)' | grep -Eo '([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)' | grep -v '127.0.0.1' | head -n 1)
+                fi
+            fi
+            ;;
+        *)
+            echo "Unsupported platform: $platform"
+            return 1
+            ;;
+    esac
 
     echo "$host_ip"
 }
