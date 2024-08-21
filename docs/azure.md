@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Azure VM Windows Pro Deployment
+title: Azure VM Windows Deployment
 parent: Installation
 nav_order: 2
 nav_fold: false
