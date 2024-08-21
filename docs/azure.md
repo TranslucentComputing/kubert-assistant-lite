@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Azure VM
+title: Azure VM Windows Pro Deployment
 parent: Installation
 nav_order: 2
 nav_fold: false
 ---
 
-# Azure VM Windows 10 Pro Deploymet
+# Azure VM Windows 10 Pro Deployment: A Complete Guide
 
 Deploying a Windows 10 Virtual Machine (VM) on Microsoft Azure allows you to create a scalable and flexible environment for development, testing, or any other business needs. Azure provides a cloud-based platform where you can easily deploy and manage Windows 10 VMs, taking advantage of the power and security of Microsoft's infrastructure. This document will guide you through the process of deploying a Windows 10 VM on Azure, from the initial setup to accessing the VM remotely.
 
