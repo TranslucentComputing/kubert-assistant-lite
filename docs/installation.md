@@ -7,7 +7,7 @@ has_toc: false
 nav_fold: false
 ---
 
-# Installation Guide
+# Kubert AI Assistant Installation Guide
 
 This guide provides step-by-step instructions to install and set up Kubert AI Assistant Lite on your local machine.
 

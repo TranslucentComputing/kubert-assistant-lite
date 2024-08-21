@@ -12,6 +12,8 @@ Deploying a Windows 10 Virtual Machine (VM) on Microsoft Azure allows you to cre
 
 While you can select other versions of Windows, this guide focuses on Windows 10 to support the deployment of Kubert AI Assistant Lite for developers, who mostly use Windows 10 on their personal development PCs.
 
+**Note:** The process for deploying a Windows 11 Pro VM on Azure is nearly identical to the steps outlined in this guide for Windows 10 Pro. You can follow the same instructions with minimal adjustments, ensuring your setup is compatible with the latest version of Windows.
+
 ## Prerequisites
 
 Before you begin, ensure you have the following:
