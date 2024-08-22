@@ -8,11 +8,9 @@ nav_fold: false
 
 # Azure VM Windows 10 Pro Deployment: A Complete Guide
 
-Deploying a Windows 10 Virtual Machine (VM) on Microsoft Azure allows you to create a scalable and flexible environment for development, testing, or any other business needs. Azure provides a cloud-based platform where you can easily deploy and manage Windows 10 VMs, taking advantage of the power and security of Microsoft's infrastructure. This document will guide you through the process of deploying a Windows 10 VM on Azure, from the initial setup to accessing the VM remotely.
+Deploying a Windows Virtual Machine (VM) on Microsoft Azure allows you to create a scalable and flexible environment for development, testing, or any other business needs. Azure provides a cloud-based platform where you can easily deploy and manage Windows VMs, taking advantage of the power and security of Microsoft's infrastructure. This document will guide you through the process of deploying a Windows 10 Pro VM on Azure, from the initial setup to accessing the VM remotely.
 
-While you can select other versions of Windows, this guide focuses on Windows 10 to support the deployment of Kubert AI Assistant Lite for developers, who mostly use Windows 10 on their personal development PCs.
-
-**Note:** The process for deploying a Windows 11 Pro VM on Azure is nearly identical to the steps outlined in this guide for Windows 10 Pro. You can follow the same instructions with minimal adjustments, ensuring your setup is compatible with the latest version of Windows.
+**Note:** While you can select other versions of Windows, including Windows 11 Pro, this guide focuses on Windows 10 Pro to support the deployment of Kubert AI Assistant Lite for developers, who mostly use Windows 10 Pro on their personal development PCs.
 
 ## Prerequisites
 
