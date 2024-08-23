@@ -8,7 +8,7 @@ nav_fold: false
 
 # WSL Setup in Windows 10 Pro
 
-## Why You Should Care?
+## Why Should You Care?
 
 For developers who need a Linux environment but prefer or are required to work within Windows, WSL offers a powerful solution. By using WSL 2 with Hyper-V and, if necessary, nested virtualization, you can enjoy the benefits of a full Linux experience directly on your Windows machine, with minimal overhead and without needing to reboot or manage a dual-boot setup.
 
