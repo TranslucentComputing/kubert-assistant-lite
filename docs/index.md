@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Home
+description: "Kubert AI Assistant Lite: An open-source tool for deploying local Kubernetes clusters with kind and automating kubectl via AI. Enhance productivity and streamline operations."
 nav_nabled: true
 sitemap:
   priority: 0.7

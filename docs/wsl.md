@@ -1,6 +1,7 @@
 ---
 layout: default
 title: WSL Setup
+description: "Learn how to set up WSL in Windows 10 Pro and discover why it's essential for developers who need a Linux environment within Windows. Run Linux tools and apps seamlessly with WSL 2."
 parent: Installation
 nav_order: 3
 nav_fold: false

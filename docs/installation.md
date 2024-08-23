@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Installation
+description: "Kubert AI Assistant Lite installation guide: Boost productivity and simplify Kubernetes management. Follow our detailed steps to set up on your local machine today!"
 nav_nabled: true
 has_children: true
 has_toc: false

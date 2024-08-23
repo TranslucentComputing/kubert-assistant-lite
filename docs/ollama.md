@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Ollama
+description: "Complete guide to Ollama installation with step-by-step instructions for macOS and Windows. Install Ollama on your local system easily today!"
 parent: Installation
 nav_order: 1
 nav_fold: false

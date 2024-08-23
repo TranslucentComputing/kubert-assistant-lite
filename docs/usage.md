@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Usage
+description: "Watch Kubert usage videos, including AI Assistant setup, Kubernetes cluster queries, diagnosing resource issues, Ollama installation, and Windows 10 Pro setup for developers."
 nav_nabled: true
 toc: true
 sitemap:

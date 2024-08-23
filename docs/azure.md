@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Azure Windows VM
+description: "Learn how to deploy a Windows 10 Pro VM on Microsoft Azure with our complete guide. Set up a scalable, secure environment for development and testing. Includes Kubert AI Assistant Lite setup."
 parent: Installation
 nav_order: 2
 nav_fold: false
