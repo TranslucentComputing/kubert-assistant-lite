@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Azure VM Windows Deployment
+title: Azure Windows VM
 parent: Installation
 nav_order: 2
 nav_fold: false
@@ -57,6 +57,8 @@ Before you begin, ensure you have the following:
 
    Not all Azure VM sizes support nested virtualization. Typically, VMs in the Dv3, Ev3, and newer series (like Dv4 or Ev4) support this feature. Ensure you select a VM size from a CPU family that offers nested virtualization support.
    List of CPU families that support nested virtualization can be found [here](https://learn.microsoft.com/en-us/azure/virtual-machines/acu){:target="_blank"}.
+
+   Information about the CPU family used in this deployment can be found [here](https://learn.microsoft.com/en-us/azure/virtual-machines/ev3-esv3-series){:target="_blank"}.
 5. Account and inbound ports.
    [![Size](/kubert-assistant-lite/assets/images/azure-vm/8_account_port.png)](/kubert-assistant-lite/assets/images/azure-vm/8_account_port.png)
 
