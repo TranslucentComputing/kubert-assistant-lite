@@ -2,6 +2,9 @@
 layout: default
 title: Home
 nav_nabled: true
+sitemap:
+  priority: 0.7
+  changefreq: 'weekly'
 ---
 
 # Kubert AI Assistant Lite

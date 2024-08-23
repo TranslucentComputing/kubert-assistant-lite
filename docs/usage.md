@@ -3,6 +3,9 @@ layout: default
 title: Usage
 nav_nabled: true
 toc: true
+sitemap:
+  priority: 0.7
+  changefreq: 'weekly'
 ---
 
 # Usage Videos
