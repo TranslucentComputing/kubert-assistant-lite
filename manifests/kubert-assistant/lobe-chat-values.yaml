@@ -4,7 +4,7 @@
 image:
   pullPolicy: IfNotPresent
   repository: lobehub/lobe-chat
-  tag: v1.11.9
+  tag: v1.12.14
 
 ## Container Http port
 containerPortHttp: 3210
