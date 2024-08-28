@@ -1,14 +1,16 @@
 ---
 layout: default
 title: Installation
-description: "Kubert AI Assistant Lite installation guide: Boost productivity and simplify Kubernetes management. Follow our detailed steps to set up on your local machine today!"
+description: "Step-by-step instructions to install and set up Kubert AI Assistant Lite on your local machine. Ensure Docker, kind, Helm, Kubectl, and other essential tools are ready for a smooth installation."
 nav_nabled: true
 has_children: true
 has_toc: false
 nav_fold: false
+k_seo:
+  title: "Kubert AI Assistant Lite Installation Guide"
 ---
 
-# Kubert AI Assistant Installation Guide
+# Kubert Lite Installation Guide
 
 This guide provides step-by-step instructions to install and set up Kubert AI Assistant Lite on your local machine.
 

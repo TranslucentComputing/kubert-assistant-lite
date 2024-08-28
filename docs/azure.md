@@ -5,6 +5,8 @@ description: "Learn how to deploy a Windows 10 Pro VM on Microsoft Azure with ou
 parent: Installation
 nav_order: 2
 nav_fold: false
+k_seo:
+  title: "Azure VM Windows 10 Pro Deployment: A Complete Guide"
 ---
 
 # Azure VM Windows 10 Pro Deployment: A Complete Guide

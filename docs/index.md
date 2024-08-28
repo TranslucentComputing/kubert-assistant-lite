@@ -1,14 +1,19 @@
 ---
 layout: default
+author: 
+  name: "Patryk Golabek"
 title: Home
+nav_title: hommiee
 description: "Kubert AI Assistant Lite: An open-source tool for deploying local Kubernetes clusters with kind and automating kubectl via AI. Enhance productivity and streamline operations."
 nav_nabled: true
 sitemap:
   priority: 0.7
   changefreq: 'weekly'
+k_seo:
+  title: "Kubert Lite: Open-Source Kubernetes AI Assistant"
 ---
 
-# Kubert AI Assistant Lite
+# Kubert Lite: Open-Source Kubernetes AI Assistant
 
 Kubert AI Assistant Lite is a lightweight open-source project that enables the deployment of a local Kubernetes cluster using [kind](https://kind.sigs.k8s.io/){:target="_blank"} and the deployment of Kubert AI Assistant with a single AI agent, the Kubectl Agent.
 

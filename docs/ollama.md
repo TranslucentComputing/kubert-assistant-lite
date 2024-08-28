@@ -5,9 +5,11 @@ description: "Complete guide to Ollama installation with step-by-step instructio
 parent: Installation
 nav_order: 1
 nav_fold: false
+k_seo:
+  title: "Ollama Installation for macOS, Linux, and Windows"
 ---
 
-## Ollama Installation
+# Ollama Installation for macOS, Linux, and Windows
 
 Full Ollama installation instruction can be found at [Ollama](https://ollama.com){:target="_blank"}.
 Bellow you have links to the macOS and Windows installation binaries, download and install.

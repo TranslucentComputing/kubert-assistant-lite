@@ -1,4 +1,5 @@
 title: Kubert AI Assistant Lite
+name: Kubert Lite
 email: patryk@translucentcomputing.com
 description: >-
   Kubert AI Assistant Lite is a productivity system for DevOps.
@@ -6,7 +7,7 @@ description: >-
   solutions for optimizing DevOps work.
 baseurl: "/kubert-assistant-lite" # Repository name
 url: "https://translucentcomputing.github.io"
-twitter_username:
+twitter_username: kubertai
 github_username:  patrykattc
 logo: "/assets/images/kubert-logo.png"
 favicon_ico: "/assets/images/favicon.ico"

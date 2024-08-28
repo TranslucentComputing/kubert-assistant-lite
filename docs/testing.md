@@ -2,9 +2,11 @@
 layout: default
 title: Testing
 nav_nabled: true
+k_seo:
+  title: "Kubert Lite Testing Guide: Unit and Integration Testing with BATS, kcov, and Helm Linter"
 ---
 
-# Testing Guide
+# **Kubert Lite Testing Guide:** Unit and Integration Testing with BATS, kcov, and Helm Linter
 
 Testing is an essential part of ensuring the reliability and correctness of the Kubert AI Assistant Lite project. This section outlines the testing strategy, tools used, and how to run the tests for the project.
 

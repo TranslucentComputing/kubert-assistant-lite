@@ -3,13 +3,16 @@ layout: default
 title: Usage
 description: "Watch Kubert usage videos, including AI Assistant setup, Kubernetes cluster queries, diagnosing resource issues, Ollama installation, and Windows 10 Pro setup for developers."
 nav_nabled: true
+has_children: true
 toc: true
 sitemap:
   priority: 0.7
   changefreq: 'weekly'
+k_seo:
+  title: "Kubert Lite Usage Videos: Guide for Setup, Querying, and Troubleshooting"
 ---
 
-# Usage Videos
+# Kubert Lite Usage Videos: Guide for Setup, Querying, and Troubleshooting
 {: .no_toc }
 
 ## Table of contents
@@ -50,27 +53,4 @@ The memory hog yaml can be found [HERE](https://raw.githubusercontent.com/Transl
         <source src="/kubert-assistant-lite/assets/video/memory-hog.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-</div>
-
-## Installing Ollama and Configuring Kubert AI Assistant Lite
-
-In this video, we walk you through the process of installing Ollama, deploying Kubert AI Assistant Lite, and configuring Ollama within the Kubert UI settings. This comprehensive guide is perfect for anyone looking to integrate AI-powered tools into their Kubernetes environment seamlessly.
-
-Once, you've installed Ollama and configured the environment variables, pull the models from the Ollama library.
-
-Additional information is available in [Ollama Installation Guide](ollama.html).
-
-<div class="video-container">
-    <video width="640" height="315" controls>
-        <source src="/kubert-assistant-lite/assets/video/ollama-installation-kubert-ai-config.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</div>
-
-## Windows 10 Pro Setup for Developers
-
-Follow along as we transform a fresh Windows 10 Pro installation into a powerful development environment. In this step-by-step guide, we’ll enable Hyper-V, configure WSL 2, install Ubuntu, Docker, Visual Studio Code, and Ollama. Whether you're setting up a new machine or optimizing your current setup, this video provides everything you need to get started with a robust and AI-enhanced workflow. Perfect for developers at any level!
-
-<div class="video-container">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/tFqUzZClLek?si=ajz0VulMGsW5BtFh&modestbranding=1" title="Complete Windows 10 Pro Setup for Dev: Hyper-V, WSL 2, Ubuntu, Docker, kind, Helm, VSCode, & Ollama" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>

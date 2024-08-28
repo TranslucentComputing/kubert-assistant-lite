@@ -1,0 +1,102 @@
+
+<!-- Begin Kubert SEO tag v1 -->
+{% assign page_title = page.k_seo.title | default: page.title %}
+<title>{{ page_title }}</title>
+
+{% assign social_page_title = page.k_seo.social_title | default: page_title %}
+<meta property="og:title" content="{{ social_page_title }}" />
+
+
+{% if page.author.name %}
+  <meta name="author" content="{{ page.author.name }}" />
+{% endif %}
+
+{% assign description = page.k_seo.description | default: page.description %}
+<meta name="description" content="{{ description }}" />
+<meta property="og:description" content="{{ description }}" />
+<meta property="twitter:description" content="{{ description }}" />
+
+{% assign base_url = site.url | append: '/kubert-assistant-lite' %}
+{% if site.url %}
+  <link rel="canonical" href="{{ base_url }}" />
+  <meta property="og:url" content="{{ base_url }}" />
+{% endif %}
+
+{% if site.title %}
+  <meta property="og:site_name" content="{{ site.title }}" />
+{% endif %}
+
+{% if page.k_seo.image %}
+  <meta property="og:image" content="{{ page.k_seo.image.path }}" />
+  {% if page.k_seo.image.height %}
+    <meta property="og:image:height" content="{{ page.k_seo.image.height }}" />
+  {% endif %}
+  {% if page.k_seo.image.width %}
+    <meta property="og:image:width" content="{{ page.k_seo.image.width }}" />
+  {% endif %}
+  {% if page.k_seo.image.alt %}
+    <meta property="og:image:alt" content="{{ page.k_seo.image.alt }}" />
+  {% endif %}
+{% endif %}
+
+{% if page.date %}
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
+{% else %}
+  <meta property="og:type" content="website" />
+{% endif %}
+
+
+{% if page.k_seo.image %}
+  <meta name="twitter:card" content="{{ page.twitter.card | default: site.twitter.card | default: "summary_large_image" }}" />
+  <meta property="twitter:image" content="{{ page.k_seo.image.path }}" />
+{% else %}
+  <meta name="twitter:card" content="summary" />
+{% endif %}
+
+{% if page.k_seo.image.alt %}
+  <meta name="twitter:image:alt" content="{{ page.k_seo.image.alt }}" />
+{% endif %}
+
+{% if social_page_title %}
+  <meta property="twitter:title" content="{{ social_page_title }}" />
+{% endif %}
+
+{% if site.twitter %}
+  <meta name="twitter:site" content="@{{ site.twitter.username | remove:'@' }}" />
+
+  {% if page.k_seo.author.twitter %}
+    <meta name="twitter:creator" content="@{{ page.k_seo.author.twitter | remove:'@' }}" />
+  {% endif %}
+{% endif %}
+
+{% if site.facebook %}
+  {% if site.facebook.admins %}
+    <meta property="fb:admins" content="{{ site.facebook.admins }}" />
+  {% endif %}
+
+  {% if site.facebook.publisher %}
+    <meta property="article:publisher" content="{{ site.facebook.publisher }}" />
+  {% endif %}
+
+  {% if site.facebook.app_id %}
+    <meta property="fb:app_id" content="{{ site.facebook.app_id }}" />
+  {% endif %}
+{% endif %}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "{{ base_url }}",
+    "name": "{{ site.title }}",
+    "headline": "Kubert Lite: Open-Source Kubernetes AI Assistant",
+    "author": {
+      "@type": "Person",
+      "name": "{{ page.author.name }}"
+    },
+    "description": "{{ page.description }}"
+  }
+  </script>
+
+<!-- End Kubert SEO tag v1 -->
