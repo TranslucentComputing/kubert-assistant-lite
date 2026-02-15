@@ -1,0 +1,70 @@
+---
+layout: null
+sitemap:
+  exclude: 'yes'
+---
+# Kubert AI Assistant Lite
+
+> Kubert AI Assistant Lite is an open-source DevOps productivity tool that deploys a local Kubernetes cluster using kind (Kubernetes in Docker) with an AI-powered Kubectl Agent for automating cluster management through natural language prompts.
+
+## Project Overview
+
+Kubert AI Assistant Lite simplifies Kubernetes management by combining generative AI with Kubernetes tooling. It provides a local development environment where developers can interact with their Kubernetes cluster using natural language instead of memorizing kubectl commands.
+
+The project is maintained by Patryk Golabek and is released under the MIT License.
+
+- Source Code: https://github.com/TranslucentComputing/kubert-assistant-lite
+- Documentation: {{ site.url }}/
+- Community: https://discord.gg/d22b58ejgV
+
+## Key Features
+
+- **Local Kubernetes Cluster**: Deploys a kind cluster inside Docker for local development and testing
+- **AI-Powered Kubectl Agent**: Executes kubectl commands based on natural language prompts
+- **Multi-LLM Support**: Works with OpenAI, Anthropic Claude, Groq, Google AI, and local Ollama models
+- **Automated Diagnostics**: Identifies and helps fix resource misconfigurations in Kubernetes
+- **Helm-Based Deployment**: Uses Helm charts for easy deployment and configuration
+- **BATS Testing**: Comprehensive unit and integration testing with BATS framework
+
+## Architecture
+
+The system consists of:
+1. Developer's Machine running Docker
+2. kind Cluster (Kubernetes in Docker)
+3. Kubert Assistant management layer
+4. Kubectl AI Agent for command execution
+5. LobeChat UI for user interaction
+
+## Documentation Pages
+
+- [Home]({{ site.url }}/): Project overview, architecture, and features
+- [Installation Guide]({{ site.url }}/installation.html): Step-by-step setup instructions and prerequisites
+- [Ollama Setup]({{ site.url }}/ollama.html): Local LLM installation with Ollama for macOS, Linux, and Windows
+- [Azure VM Setup]({{ site.url }}/azure.html): Deploying Windows 10 Pro VM on Azure for development
+- [WSL Setup]({{ site.url }}/wsl.html): Windows Subsystem for Linux configuration guide
+- [Usage Videos]({{ site.url }}/usage.html): Demo videos for setup, querying, and troubleshooting
+- [Testing Guide]({{ site.url }}/testing.html): Unit testing, integration testing, and coverage with BATS and kcov
+
+## Prerequisites
+
+- Docker
+- kind (Kubernetes in Docker)
+- Helm
+- kubectl
+- jq
+- Make
+- An API key from OpenAI, Anthropic, Groq, or Google AI (or local Ollama)
+
+## Quick Start
+
+```bash
+git clone https://github.com/TranslucentComputing/kubert-assistant-lite.git
+cd kubert-assistant-lite
+make deploy
+```
+
+Then open http://kubert-assistant.lan/ in your browser.
+
+## Technologies
+
+Kubernetes, Docker, kind, Helm, BATS, kcov, OpenAI API, Anthropic API, Groq API, Google AI API, Ollama, LobeChat, Calico, NGINX Ingress Controller

@@ -1,11 +1,8 @@
 ---
 layout: default
-author: 
-  name: "Patryk Golabek"
-title: Home
-nav_title: hommiee
+title: "Kubert AI Assistant Lite: Open-Source Kubernetes AI Tool"
 description: "Kubert AI Assistant Lite: An open-source tool for deploying local Kubernetes clusters with kind and automating kubectl via AI. Enhance productivity and streamline operations."
-nav_nabled: true
+nav_enabled: true
 sitemap:
   priority: 0.7
   changefreq: 'weekly'
@@ -21,7 +18,7 @@ Kubert AI Assistant Lite is a lightweight open-source project that enables the d
 [Join Our Discord](https://discord.gg/d22b58ejgV){: .btn .btn-green target="_blank" rel="noopener" }
 
 *Kubectl AI Agent At Work: Retrieving pod status*{: .fw-300 }
-[![Namespace Status](/kubert-assistant-lite/assets/images/namespace-status.png)](/kubert-assistant-lite/assets/images/namespace-status.png)
+[![Namespace Status](/assets/images/namespace-status.png)](/assets/images/namespace-status.png)
 
 ## Key Features
 

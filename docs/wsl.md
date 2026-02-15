@@ -45,9 +45,9 @@ If you're running WSL inside a virtual machine, you may need nested virtualizati
 
 In the start search, search for "Turn Windows features on or off".
 
-[![Search](/kubert-assistant-lite/assets/images/windows/start-search.png)](/kubert-assistant-lite/assets/images/windows/start-search.png)
+[![Windows Start menu search for Turn Windows features on or off](/assets/images/windows/start-search.png)](/assets/images/windows/start-search.png)
 
-[![Hyper-v](/kubert-assistant-lite/assets/images/windows/turn-on-hyper-v.png)](/kubert-assistant-lite/assets/images/windows/turn-on-hyper-v.png)
+[![Windows Features dialog showing Hyper-V checkbox enabled](/assets/images/windows/turn-on-hyper-v.png)](/assets/images/windows/turn-on-hyper-v.png)
 
 Restart the PC.
 
@@ -55,7 +55,7 @@ Restart the PC.
 
 Search for the "Turn Windows features on or off", and this time enable "Virtual Machine Platform" and "Windows Subsystem for Linux"
 
-[![WSL](/kubert-assistant-lite/assets/images/windows/turn-on-wsl.png)](/kubert-assistant-lite/assets/images/windows/wsl.png)
+[![Windows Features dialog showing WSL and Virtual Machine Platform enabled](/assets/images/windows/turn-on-wsl.png)](/assets/images/windows/wsl.png)
 
 Restart the PC.
 

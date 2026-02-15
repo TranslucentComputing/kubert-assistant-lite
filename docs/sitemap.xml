@@ -5,7 +5,7 @@ sitemap:
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  {% assign base_url = site.url | append: '/kubert-assistant-lite' %}
+  {% assign base_url = site.url | append: site.baseurl %}
   {% for post in site.posts %}
     {% unless post.published == false %}
     <url>
@@ -32,7 +32,7 @@ sitemap:
   {% endfor %}
   {% for page in site.pages %}
     {% assign file_extension = page.path | split: '.' | last %}
-    {% unless page.sitemap.exclude == "yes" or page.name == "feed.xml" or page.path contains ".js" or page.path contains ".xml" or page.path contains ".css" or page.path contains ".json" or page.path contains ".scss" %}
+    {% unless page.sitemap.exclude == "yes" or page.name == "feed.xml" or page.path contains ".js" or page.path contains ".xml" or page.path contains ".css" or page.path contains ".json" or page.path contains ".scss" or page.path contains ".txt" %}
     <url>
       <loc>{{ base_url }}{{ page.url | remove: "index.html" }}</loc>
       {% if page.sitemap.lastmod %}

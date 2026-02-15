@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Installation
-description: "Step-by-step instructions to install and set up Kubert AI Assistant Lite on your local machine. Ensure Docker, kind, Helm, Kubectl, and other essential tools are ready for a smooth installation."
-nav_nabled: true
+description: "Kubert AI Assistant Lite installation guide: Boost productivity and simplify Kubernetes management. Follow our detailed steps to set up on your local machine today!"
+nav_enabled: true
 has_children: true
 has_toc: false
 nav_fold: false
@@ -103,7 +103,7 @@ Follow these steps to install and set up Kubert AI Assistant Lite:
 
     <div class="video-container">
         <video width="700" height="315" controls>
-            <source src="/kubert-assistant-lite/assets/video/open-browser.mov" type="video/mp4">
+            <source src="/assets/video/open-browser.mov" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -128,7 +128,7 @@ Example running `make deploy` in iTerminal on a Mac.
 
 <div id="make-deploy-mac"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-deploy-mac.cast', document.getElementById('make-deploy-mac'),{
+    AsciinemaPlayer.create('/assets/terminal/make-deploy-mac.cast', document.getElementById('make-deploy-mac'),{
            poster: 'npt:10'
         });
 </script>
@@ -141,7 +141,7 @@ Example running `make cleanup` in iTerminal on a Mac.
 
 <div id="make-cleanup-mac"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-cleanup-mac.cast', document.getElementById('make-cleanup-mac'),{
+    AsciinemaPlayer.create('/assets/terminal/make-cleanup-mac.cast', document.getElementById('make-cleanup-mac'),{
            poster: 'npt:10'
         });
 </script>

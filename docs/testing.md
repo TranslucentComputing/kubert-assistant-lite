@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Testing
-nav_nabled: true
-k_seo:
-  title: "Kubert Lite Testing Guide: Unit and Integration Testing with BATS, kcov, and Helm Linter"
+description: "Comprehensive testing guide for Kubert AI Assistant Lite: unit testing with BATS, integration testing, code coverage with kcov, and Helm chart linting."
+nav_enabled: true
 ---
 
 # **Kubert Lite Testing Guide:** Unit and Integration Testing with BATS, kcov, and Helm Linter
@@ -56,7 +55,7 @@ This command runs all unit tests located in the tests/unit directory.
 
 <div id="make-tests"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests.cast', document.getElementById('make-tests'),{
+    AsciinemaPlayer.create('/assets/terminal/make-tests.cast', document.getElementById('make-tests'),{
            poster: 'npt:1'
         });
 </script>
@@ -69,7 +68,7 @@ make tests TEST_FILE=tests/unit/test_wait_functions.bats
 
 <div id="make-tests-one-file"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-one-file.cast', document.getElementById('make-tests-one-file'),{
+    AsciinemaPlayer.create('/assets/terminal/make-tests-one-file.cast', document.getElementById('make-tests-one-file'),{
            poster: 'npt:1'
         });
 </script>
@@ -82,7 +81,7 @@ make tests TEST_FILE=tests/unit/test_wait_functions.bats TEST_PATTERN="wait_for_
 
 <div id="make-tests-one-file-one-test"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-one-file-one-test.cast', document.getElementById('make-tests-one-file-one-test'),{
+    AsciinemaPlayer.create('/assets/terminal/make-tests-one-file-one-test.cast', document.getElementById('make-tests-one-file-one-test'),{
            poster: 'npt:1'
         });
 </script>
@@ -97,7 +96,7 @@ make integration-tests
 
 <div id="make-tests-integration"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-integration.cast', document.getElementById('make-tests-integration'),{
+    AsciinemaPlayer.create('/assets/terminal/make-tests-integration.cast', document.getElementById('make-tests-integration'),{
            poster: 'npt:1'
         });
 </script>
@@ -112,7 +111,7 @@ make integration-tests INTEGRATION_TEST_FILE=tests/integration/test_deploy_appli
 
 <div id="make-tests-integration-one-file"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-tests-integration-one-file.cast', document.getElementById('make-tests-integration-one-file'), {
+    AsciinemaPlayer.create('/assets/terminal/make-tests-integration-one-file.cast', document.getElementById('make-tests-integration-one-file'), {
            poster: 'npt:1'
         });
 </script>
@@ -129,7 +128,7 @@ To run tests with coverage and generate coverage reports using kcov, follow thes
 
     <div id="build-kcov-image"></div>
     <script>
-        AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/build-kcov-image.cast', document.getElementById('build-kcov-image'),{
+        AsciinemaPlayer.create('/assets/terminal/build-kcov-image.cast', document.getElementById('build-kcov-image'),{
            poster: 'npt:1'
         });
     </script>
@@ -142,7 +141,7 @@ To run tests with coverage and generate coverage reports using kcov, follow thes
 
     <div id="make-coverage"></div>
     <script>
-        AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/make-coverage.cast', document.getElementById('make-coverage'),{
+        AsciinemaPlayer.create('/assets/terminal/make-coverage.cast', document.getElementById('make-coverage'),{
            poster: 'npt:1'
         });
     </script>
@@ -153,7 +152,7 @@ This command will execute the tests and generate coverage reports in the coverag
 open coverage/index.html
 ```
 
-!["Coverage Report"](/kubert-assistant-lite/assets/images/coverage-report.png "Coverage Report")
+!["Coverage Report"](/assets/images/coverage-report.png "Coverage Report")
 
 ## Helm Testing
 
@@ -164,7 +163,7 @@ make lint-chart
 ```
 <div id="lint-chart"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/lint-chart.cast', document.getElementById('lint-chart'),{
+    AsciinemaPlayer.create('/assets/terminal/lint-chart.cast', document.getElementById('lint-chart'),{
         poster: 'npt:1'
     });
 </script>
@@ -177,7 +176,7 @@ make template-chart
 
 <div id="template-chart"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/template-chart.cast', document.getElementById('template-chart'),{
+    AsciinemaPlayer.create('/assets/terminal/template-chart.cast', document.getElementById('template-chart'),{
         poster: 'npt:1'
     });
 </script>
@@ -190,7 +189,7 @@ make helm-test
 
 <div id="helm-tests"></div>
 <script>
-    AsciinemaPlayer.create('/kubert-assistant-lite/assets/terminal/helm-tests.cast', document.getElementById('helm-tests'),{
+    AsciinemaPlayer.create('/assets/terminal/helm-tests.cast', document.getElementById('helm-tests'),{
         poster: 'npt:1'
     });
 </script>

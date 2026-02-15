@@ -1,2 +1,30 @@
-<link rel="stylesheet" type="text/css" href="/kubert-assistant-lite/assets/css/asciinema-player.css" />
-<script src="/kubert-assistant-lite/assets/js/asciinema-player.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ '/assets/css/asciinema-player.css' | relative_url }}" />
+<script src="{{ '/assets/js/asciinema-player.min.js' | relative_url }}"></script>
+
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Kubert AI Assistant Lite",
+  "description": "An open-source DevOps productivity tool that deploys a local Kubernetes cluster using kind with an AI-powered Kubectl Agent for automating cluster management through natural language prompts.",
+  "url": "{{ site.url }}{{ site.baseurl }}/",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "macOS, Linux, Windows (via WSL)",
+  "license": "https://github.com/TranslucentComputing/kubert-assistant-lite/blob/main/LICENSE",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Patryk Golabek"
+  },
+  "codeRepository": "https://github.com/TranslucentComputing/kubert-assistant-lite",
+  "programmingLanguage": ["Bash", "YAML"],
+  "keywords": ["Kubernetes", "AI", "DevOps", "kubectl", "kind", "Helm", "automation", "open-source"]
+}
+</script>
+{% endif %}
