@@ -7,7 +7,7 @@ description: >-
   solutions for optimizing DevOps work.
 baseurl: "" # No path prefix needed for custom domain
 url: "https://kubert-assistant-lite.patrykgolabek.dev"
-twitter_username: patrykgolabek
+twitter_username: QuantumMentat
 github_username: patrykattc
 logo: "/assets/images/kubert-logo.png"
 favicon_ico: "/assets/images/favicon.ico"
