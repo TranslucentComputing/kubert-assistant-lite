@@ -16,10 +16,11 @@
 <meta property="og:description" content="{{ description }}" />
 <meta property="twitter:description" content="{{ description }}" />
 
-{% assign base_url = site.url | append: '/kubert-assistant-lite' %}
+{% assign base_url = site.url | append: site.baseurl %}
+{% assign page_url = base_url | append: page.url %}
 {% if site.url %}
-  <link rel="canonical" href="{{ base_url }}" />
-  <meta property="og:url" content="{{ base_url }}" />
+  <link rel="canonical" href="{{ page_url }}" />
+  <meta property="og:url" content="{{ page_url }}" />
 {% endif %}
 
 {% if site.title %}
@@ -88,7 +89,7 @@
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "url": "{{ base_url }}",
+    "url": "{{ page_url }}",
     "name": "{{ site.title }}",
     "headline": "Kubert Lite: Open-Source Kubernetes AI Assistant",
     "author": {

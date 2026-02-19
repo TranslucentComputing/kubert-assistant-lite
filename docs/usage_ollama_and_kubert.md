@@ -19,7 +19,7 @@ Additional information is available in [Ollama Installation Guide](ollama.html).
 
 <div class="video-container">
     <video width="640" height="315" controls>
-        <source src="/kubert-assistant-lite/assets/video/ollama-installation-kubert-ai-config.mp4" type="video/mp4">
+        <source src="/assets/video/ollama-installation-kubert-ai-config.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 </div>
