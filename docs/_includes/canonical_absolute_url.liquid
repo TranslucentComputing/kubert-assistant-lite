@@ -1,0 +1,16 @@
+{%- comment -%}
+  Absolute URL for rel=canonical, og:url, and sitemap <loc>.
+
+  GitHub Pages also serves extensionless URLs (e.g. /wsl for wsl.html). If the
+  canonical tag points at the .html URL while Google prefers the shorter URL,
+  Search Console reports "Duplicate, Google chose different canonical than user".
+  Normalizing to extensionless paths matches the duplicate URL Google selects.
+{%- endcomment -%}
+{%- assign __base = site.url | append: site.baseurl -%}
+{%- assign __path = include.path -%}
+{%- if __path == '/index.html' -%}
+  {%- assign __path = '/' -%}
+{%- elsif __path contains '.html' -%}
+  {%- assign __path = __path | replace: '.html', '' -%}
+{%- endif -%}
+{{- __base | append: __path -}}

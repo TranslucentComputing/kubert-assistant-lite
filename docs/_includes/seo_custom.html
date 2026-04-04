@@ -17,7 +17,9 @@
 <meta property="twitter:description" content="{{ description }}" />
 
 {% assign base_url = site.url | append: site.baseurl %}
-{% assign page_url = base_url | append: page.url %}
+{%- capture page_url -%}
+{%- include canonical_absolute_url.liquid path=page.url -%}
+{%- endcapture -%}
 {% if site.url %}
   <link rel="canonical" href="{{ page_url }}" />
   <meta property="og:url" content="{{ page_url }}" />
